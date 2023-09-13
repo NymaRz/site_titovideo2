@@ -16,8 +16,8 @@ export async function GET() {
 }
 
 export async function DELETE(request) {
-  const id = request.nextUrl.searchParams.get("id");
-  await connectMongoDB();
-  await Postuler.findByIdAndDelete(id);
-  return NextResponse.json({ message: "Topic deleted" }, { status: 200 });
+    const { id } = request.params;
+    await connectMongoDB();
+    await Postuler.findByIdAndDelete(id);
+    return NextResponse.json({ message: "Topic deleted" }, { status: 200 });
 }

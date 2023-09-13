@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import { LuChefHat } from "react-icons/lu";
 import { GiGamepad,GiVideoCamera,GiPublicSpeaker} from "react-icons/gi";

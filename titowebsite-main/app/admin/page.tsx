@@ -11,6 +11,7 @@ import {
 } from '@tremor/react';
 import Link from 'next/link';
 import {mockSession} from "next-auth/client/__tests__/helpers/mocks";
+import {signOut} from "next-auth/react";
 
 
 
@@ -19,6 +20,7 @@ interface User {
   name: string;
   username: string;
   email: string;
+  cv: string;
 }
 
 
@@ -64,6 +66,7 @@ export default function UsersTable({ users }: { users: User[] }) {
           </Link>
                        
           </div>
+
         </div>
        
     
