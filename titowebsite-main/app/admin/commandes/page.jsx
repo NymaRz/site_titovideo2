@@ -10,7 +10,7 @@ import SectionTitle from '@/components/Common/SectionTitle';
 
 const getMessages = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/contact", {
+      const res = await fetch("http://localhost:3000/api/commande", {
         method: "GET",
         cache: "no-store",
       });

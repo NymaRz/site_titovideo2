@@ -7,6 +7,7 @@ import {MdEvent} from "react-icons/md";
 import { loadStripe } from '@stripe/stripe-js';
 import stripePromise from './stripeConfig';
 
+
 const MontageForm = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedChoice, setSelectedChoice] = useState('');
@@ -34,6 +35,31 @@ const handleSubmit = async (e) => {
         }
     }
 };
+
+const submit = async (e) => {
+  //envoie du formulaire sans stripe
+    e.preventDefault();
+const res = await fetch("api/commande", {
+    method: "POST",
+    headers: {
+        "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+        selectedOption,
+        selectedChoice,
+        switchValue,
+    }),
+});
+const { msg, success } = await res.json();
+setError(msg);
+setSuccess(success);
+if (success) {
+    setSelectedOption("");
+    setSelectedChoice("");
+    setSwitchValue("");
+}
+};
+
 
 
   const styleVideoData = [
@@ -100,7 +126,7 @@ const handleSubmit = async (e) => {
              Formulaire
             </h3>
       
-      <form>
+      <form onSubmit={submit}>
         
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Email</label>
