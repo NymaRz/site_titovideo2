@@ -10,7 +10,7 @@ import SectionTitle from '@/components/Common/SectionTitle';
 
 const getMessages = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/commande", {
+      const res = await fetch(`http://localhost:3000/tarifs/api/commande`, {
         method: "GET",
         cache: "no-store",
       });
@@ -21,13 +21,13 @@ const getMessages = async () => {
   
       return res.json();
     } catch (error) {
-      console.log("Error loading messages: ", error);
+      console.log("Error loading messages: ",error);
     }
   };
 
 export default async function BasicTable (){
-  const {message}  = await getMessages();   
-  console.log(message);
+    const {commande}  = await getMessages();
+
 
   return (
     <section id="portfolio" className="relative z-10 py-16 md:py-20 lg:py-28">
@@ -43,24 +43,23 @@ export default async function BasicTable (){
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Nom Complet</TableCell>
+
             <TableCell >Email</TableCell>
-            <TableCell >Messages</TableCell>
+
            
           </TableRow>
         </TableHead>
         <TableBody>
-        {message.map((t) => (
+        {commande.map((t) => (
             <TableRow
               key={t._id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {t.fullname}
+
               </TableCell>
               <TableCell >{t.email}</TableCell>
-              <TableCell >{t.message}</TableCell>
-              
+
             </TableRow>
           ))}
         </TableBody>

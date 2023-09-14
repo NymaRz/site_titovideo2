@@ -12,6 +12,9 @@ const MontageForm = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedChoice, setSelectedChoice] = useState('');
   const [switchValue, setSwitchValue] = useState(false);
+  const [email, setEmail] = useState("");
+  const [sound, setSound] = useState("");
+  const [name, setName] = useState("");
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -37,32 +40,27 @@ const handleSubmit = async (e) => {
 };
 
 const submit = async (e) => {
-  //envoie du formulaire sans stripe
+    //envoie du formulaire sans stripe
     e.preventDefault();
-const res = await fetch("api/commande", {
-    method: "POST",
-    headers: {
-        "Content-type": "application/json",
-    },
-    body: JSON.stringify({
-        selectedOption,
-        selectedChoice,
-        switchValue,
-    }),
-});
-const { msg, success } = await res.json();
-setError(msg);
-setSuccess(success);
-if (success) {
-    setSelectedOption("");
-    setSelectedChoice("");
-    setSwitchValue("");
-}
+    await fetch("api/commande", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+           selectedStyle,
+            selectedChoice,
+            switchValue,
+            email,
+            sound,
+            name,
+        }),
+    });
 };
 
 
 
-  const styleVideoData = [
+    const styleVideoData = [
     {
       id: 1,
       title: "Vlog / IRL",
@@ -106,10 +104,12 @@ if (success) {
 
   const handleStyleSelection = (styleId) => {
     setSelectedStyle(styleId);
+    console.log(styleId);
   };
 
   const handleChoiceChange = (choice) => {
     setSelectedChoice(choice);
+    console.log(choice);
   };
 
   const handleSwitchChange = () => {
@@ -127,13 +127,23 @@ if (success) {
             </h3>
       
       <form onSubmit={submit}>
-        
+          <div className="mb-4">
+              <label className="block text-sm font-medium mb-1">Nom</label>
+                <input
+                    type="text"
+                    placeholder='Nom'
+                    className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                    onChange={(e) => setName(e.target.value)}
+                />
+            </div>
+
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Email</label>
           <input
             type="email"
-            placeholder='johndoe@gmail.com'
+            placeholder='Email'
             className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         
@@ -190,6 +200,7 @@ if (success) {
             type="text"
             placeholder='Imagine Dragons - Believer'
             className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+            onChange={(e) => setSound(e.target.value)}
           />
         </div>
 
@@ -204,7 +215,7 @@ if (success) {
             <input
               type="date"
               className="w-full resize-none rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
-              // Vous pouvez ajouter des attributs name et id si nécessaire
+
             />
         </div>
 

@@ -18,7 +18,7 @@ const postuler = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !email || !telephone || !poste || !cv || !projets) {
+    if (!username || !email || !telephone || !poste ) {
       alert("Tous les champs sont requis.");
       return;
     }
