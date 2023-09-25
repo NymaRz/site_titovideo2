@@ -3,6 +3,7 @@ import { useState } from "react";
 import SectionTitle from "../Common/SectionTitle";
 import OfferList from "./OfferList";
 import PricingBox from "./PricingBox";
+import Fade from 'react-reveal/Fade';
 
 const Pricing = () => {
   const [isMonthly, setIsMonthly] = useState(true);
@@ -18,6 +19,7 @@ const Pricing = () => {
         />
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+          <Fade left>
           <PricingBox
             packageName="Montage Short"
             link="short"
@@ -32,9 +34,9 @@ const Pricing = () => {
             <OfferList text="Une série de révision offerte " status="active" />
           </PricingBox>
           <PricingBox
-            packageName="Pack premium"
+            packageName="premium"
             price="300"
-            link="premium"
+            link="A à Z"
             duration={isMonthly ? "mo" : "yr"}
             subtitle="Livraison en 72h 3 projets."
           >
@@ -45,6 +47,7 @@ const Pricing = () => {
             <OfferList text="Service personnalisable sans supplément " status="active" />
             <OfferList text="Une série de révision offerte " status="active" />
           </PricingBox>
+
           <PricingBox
             packageName="Montage youtube"
             price="250"
@@ -58,6 +61,42 @@ const Pricing = () => {
             <OfferList text=" Service personnalisable sans supplément " status="active" />
             <OfferList text="Une série de révision offerte " status="active" />
           </PricingBox>
+
+
+
+          <PricingBox price={"2000"} duration={isMonthly ? "mo" : "yr"} packageName={"Pack vidéos"} subtitle={"Livraison 30 jours"} link={"video"}>
+            <OfferList text="Chef de projet" status="active" />
+            <OfferList text="Vidéo teaser 5 minutes" status="active" />
+            <OfferList text="Vidéo longue de 20 minutes" status="active" />
+            <OfferList text="Captation vidéo de 5H de présence" status="active" />
+            <OfferList text="Post production" status="active" />
+            <OfferList text="1 série de révision gratuite" status="active" />
+            <OfferList text="Suivis de l'avancée du projet" status="active" />
+          </PricingBox>
+
+            <PricingBox price={"2500"} duration={isMonthly ? "mo" : "yr"} packageName={"Pack complet"} subtitle={"Livraison 60 jours"} link={"complet"}>
+
+              <OfferList text="Chef de projet" status="active" />
+              <OfferList text="Album 50 photos" status="active" />
+              <OfferList text="Vidéo teaser 5 minutes" status="active" />
+              <OfferList text="Vidéo longue de 20 minutes" status="active" />
+              <OfferList text="Captation photo / vidéo 7H de présence" status="active" />
+              <OfferList text="Post production" status="active" />
+              <OfferList text="1 série de révision gratuite" status="active" />
+              <OfferList text="Suivis de l'avancée du projet" status="active" />
+            </PricingBox>
+
+          <PricingBox price={"1500"} duration={isMonthly ? "mo" : "yr"} packageName={"Pack Photos"} subtitle={"Livraison 30 jours"} link={"photo"}>
+            <OfferList text="Chef de projet" status="active" />
+            <OfferList text="Album 100 photos" status="active" />
+            <OfferList text="Captation photo de 5H de présence" status="active" />
+            <OfferList text="Post production" status="active" />
+            <OfferList text="Suivis de l'avancée du projet" status="active" />
+          </PricingBox>
+          </Fade>
+
+
+
         </div>
       </div>
 
@@ -116,6 +155,10 @@ const Pricing = () => {
         </svg>
       </div>
     </section>
+
+
+
+
   );
 };
 

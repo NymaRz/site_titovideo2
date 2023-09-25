@@ -6,15 +6,16 @@ import connectMongoDB from "../../../../libs/mongodb";
 
 
 export async function POST(request) {
-  const {selectedStyle,email,sound,name} = await request.json()
+  const {selectedStyle,email,sound,name,selectedChoice} = await request.json()
 
   try {
     await connectMongoDB()
     await Commande.create({
-email,
-sound,
-name,
-
+        email,
+        sound,
+        name,
+        selectedChoice,
+        selectedStyle
 
 
 

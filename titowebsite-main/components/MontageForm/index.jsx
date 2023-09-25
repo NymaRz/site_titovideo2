@@ -114,6 +114,8 @@ const submit = async (e) => {
 
   const handleSwitchChange = () => {
     setSwitchValue((prevValue) => !prevValue);
+    console.log(switchValue);
+
   };
 
   return (
@@ -180,7 +182,7 @@ const submit = async (e) => {
           </select>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-4" onChange={handleSwitchChange}>
         <label className="block text-sm font-medium mb-1">Sous-titrage</label>
 
             <div className="flex items-center mb-4">

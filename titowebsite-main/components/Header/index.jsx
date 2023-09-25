@@ -154,13 +154,12 @@ const Header = () => {
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
                      {status === "authenticated" ? (
-                          <Link
-                            href="/admin"
+                          <button
+                            onClick={() => signOut()}
                             className="hidden py-3 px-7 text-base font-bold text-dark hover:opacity-70 dark:text-white md:block"
-                            >
-                            Profil
-
-                            </Link>
+                          >
+                            Déconnexion
+                          </button>
                         ) : (
                           <Link 
                             href="/signin"
@@ -168,21 +167,27 @@ const Header = () => {
                           >
                             Connexion
                           </Link>
-
                         )}
 
-                {status === "authenticated" ? (
-                    <button onClick={() => signOut()} className="hidden py-3 px-7 text-base font-bold text-dark hover:opacity-70 dark:text-white md:block">
-                        Déconnexion
-                    </button>
-                ) : (
-                    <Link href=""
-                    >
 
-                    </Link>
-                )}
+                      {status === "authenticated" ? (
 
-
+                        <Link 
+                          href="/admin"
+                          className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9"
+                        >
+                          Profil
+                          
+                        </Link>
+                        ) : (
+                          <Link 
+                            href="/signup"
+                            className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9"
+                          >
+                            Inscription
+                            
+                          </Link>
+                        )}
               
                 <div>
                   <ThemeToggler />

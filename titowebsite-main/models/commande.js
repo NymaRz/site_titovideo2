@@ -19,7 +19,12 @@ const commandeSchema = new Schema({
     name:{
         type: String,
     },
-
+    selectedChoice:{
+        type: String,
+    },
+    selectedStyle:{
+        type: String,
+    }
 
 
 

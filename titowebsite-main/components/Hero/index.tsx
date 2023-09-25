@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import {fadeIn} from '../variants';
 import ParticlesContainer from "../ParticlesContainer";
 import TransitionsModal from "../TransitionsModal";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Hero : React.FC = () => {
   const [open, setOpen] = React.useState(false);
@@ -100,6 +101,12 @@ const Hero : React.FC = () => {
                   </span>
                   Voir nos réalisations
                 </a>
+
+
+
+
+
+
               </div>
             </div>
           </div>

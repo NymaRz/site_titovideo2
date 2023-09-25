@@ -5,6 +5,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import {getSession} from 'next-auth/react'
 import Paper from '@mui/material/Paper';
 import SectionTitle from '@/components/Common/SectionTitle';
 
@@ -14,11 +15,11 @@ const getMessages = async () => {
         method: "GET",
         cache: "no-store",
       });
-  
+
       if (!res.ok) {
         throw new Error("Failed to fetch messages");
       }
-  
+
       return res.json();
     } catch (error) {
       console.log("Error loading messages: ",error);
@@ -31,22 +32,27 @@ export default async function BasicTable (){
 
   return (
     <section id="portfolio" className="relative z-10 py-16 md:py-20 lg:py-28">
-    
+
     <SectionTitle
       title="Bienvenue sur la page admin"
       paragraph="Vous avez accès en temps réel aux demandes des clients"
       center
       width="635px"
     />
-    <div className="container">
-    <TableContainer component={Paper}>
+      <div className="container px-4 mx-auto">
+      <TableContainer  className="bg-white shadow-md rounded my-6">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
+        <TableHead className="bg-gray-50 dark:bg-gray-800">
           <TableRow>
 
-            <TableCell >Email</TableCell>
+            <TableCell align="right">Email</TableCell>
+            <TableCell align="right">Musique</TableCell>
+            <TableCell align="right">Date</TableCell>
+            <TableCell align="right">ID</TableCell>
+            <TableCell align="right">Style</TableCell>
+            <TableCell align="right">Format</TableCell>
 
-           
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -58,8 +64,12 @@ export default async function BasicTable (){
               <TableCell component="th" scope="row">
 
               </TableCell>
-              <TableCell >{t.email}</TableCell>
-
+              <TableCell  >{t.email}</TableCell>
+              <TableCell>{t.sound}</TableCell>
+                <TableCell>{t.date}</TableCell>
+              <TableCell align="right">{t._id}</TableCell>
+              <TableCell align="right">{t.selectedChoice}</TableCell>
+              <TableCell align="right">{t.selectedStyle}</TableCell>
             </TableRow>
           ))}
         </TableBody>
