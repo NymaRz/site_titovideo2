@@ -1,5 +1,5 @@
 import  connectMongoDB  from "@/libs/mongodb";
-import User from "@/models/user";
+import User from "@/models/commande_client";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -60,7 +60,7 @@ const authOptions = {
           const userExists = await User.findOne({ email });
 
           if (!userExists) {
-            const res = await fetch("http://localhost:3000/api/user", {
+            const res = await fetch("http://localhost:3000/api/client_login", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

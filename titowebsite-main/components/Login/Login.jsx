@@ -153,15 +153,8 @@ export default function Login() {
                     Me gardez connecter
                   </label>
                 </div>
-                <div>
-                  <a
-                    href="#0"
-                    className="text-sm font-medium text-primary hover:underline"
-                  >
-                    Mot de passe oublié
 
-                  </a>
-                </div>
+
               </div>
               <div className="mb-6">
                 <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
