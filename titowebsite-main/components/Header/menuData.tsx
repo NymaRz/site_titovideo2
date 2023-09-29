@@ -21,13 +21,13 @@ const menuData: Menu[] = [
   },
   {
     id: 4,
-    title: "Nos tarifs",
+    title: "Prendre un rendez-vous",
     path: "/tarifs",
     newTab: false,
   },
   {
     id: 5,
-    title: "Postuler",
+    title: "Nous rejoindre",
     path: "/postuler",
     newTab: false,
   }

@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const commandeSchema = new Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
 
     email:{
@@ -22,9 +23,10 @@ const commandeSchema = new Schema({
     selectedChoice:{
         type: String,
     },
-    selectedStyle:{
-        type: String,
+    tito:{
+        type: Number,
     }
+
 
 
 

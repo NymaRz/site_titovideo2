@@ -45,17 +45,13 @@ export default async function BasicTable (){
         <TableHead className="bg-gray-50 dark:bg-gray-800">
           <TableRow>
 
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">Musique</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">ID</TableCell>
-            <TableCell align="right">Style</TableCell>
-            <TableCell align="right">Format</TableCell>
+
 
 
           </TableRow>
         </TableHead>
         <TableBody>
+
         {commande.map((t) => (
             <TableRow
               key={t._id}
@@ -64,12 +60,14 @@ export default async function BasicTable (){
               <TableCell component="th" scope="row">
 
               </TableCell>
+              <TableCell align="right">Email</TableCell>
               <TableCell  >{t.email}</TableCell>
+              <TableCell align="right">Info</TableCell>
               <TableCell>{t.sound}</TableCell>
-                <TableCell>{t.date}</TableCell>
+              <TableCell align="right">ID</TableCell>
               <TableCell align="right">{t._id}</TableCell>
+              <TableCell align="right">Format</TableCell>
               <TableCell align="right">{t.selectedChoice}</TableCell>
-              <TableCell align="right">{t.selectedStyle}</TableCell>
             </TableRow>
           ))}
         </TableBody>

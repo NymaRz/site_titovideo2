@@ -59,6 +59,8 @@ const authOptions = {
           await connectMongoDB();
           const userExists = await User.findOne({ email });
 
+
+
           if (!userExists) {
             const res = await fetch("http://localhost:3000/api/client_login", {
               method: "POST",
@@ -70,6 +72,7 @@ const authOptions = {
                 email,
               }),
             });
+
 
             if (res.ok) {
               return user;

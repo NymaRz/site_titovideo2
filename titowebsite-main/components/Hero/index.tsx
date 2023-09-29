@@ -67,7 +67,7 @@ const Hero : React.FC = () => {
                   href="tarifs"
                   className="inline-flex items-center rounded bg-primary py-[10px] px-6 font-heading text-base text-white hover:bg-opacity-90 md:py-[14px] md:px-8"
                 >
-                  Nos tarifs
+                  Nos offres
                   <span className="pl-3">
                     <svg
                       width="16"
