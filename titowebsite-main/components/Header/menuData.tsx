@@ -9,7 +9,7 @@ const menuData: Menu[] = [
   },
   {
     id: 2,
-    title: "Portfolio",
+    title: "Nos réalisations",
     path: "/portfolio",
     newTab: false,
   },
@@ -19,12 +19,7 @@ const menuData: Menu[] = [
     path: "/articles",
     newTab: false,
   },
-  {
-    id: 4,
-    title: "Prendre un rendez-vous",
-    path: "/tarifs",
-    newTab: false,
-  },
+
   {
     id: 5,
     title: "Nous rejoindre",

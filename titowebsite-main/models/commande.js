@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-
 const commandeSchema = new Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
@@ -25,7 +24,15 @@ const commandeSchema = new Schema({
     },
     tito:{
         type: Number,
+    },
+    etat:{
+        type: String,
+        enum: ["En attente", "En cours", "Terminé"],
+        default: "En attente",
     }
+
+
+
 
 
 

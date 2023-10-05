@@ -32,7 +32,7 @@ const Team = () => {
     }, [activeItem]);
   
     return (
-      <section className="relative z-10 py-16 md:py-20 lg:py-28">
+      <section className="relative z-10 py-16 md:py-20 lg:py-5 mt-20 h-96">
       <div className="container">
         <SectionTitle
           title="Découvrez Notre équipe"
@@ -59,13 +59,13 @@ const Team = () => {
                 )}
                 key={person.name}
               >
-                <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[#c9c6c7]">
+                <div className="relative h-80 w-full overflow-hidden rounded-2xl bg-[#c9c6c7]">
                   <img
                     className="absolute right-0 top-1/2 h-auto w-24 max-w-none -translate-y-1/2 object-cover grayscale md:left-1/2 md:h-[640px] md:w-[590px] md:-translate-x-1/2"
                     src={person.img}
                     alt={person.name}
-                    width="590px"
-                    height="640px"
+                    width="490px"
+                    height="540px"
                   />
                   <div
                     className={classNames(

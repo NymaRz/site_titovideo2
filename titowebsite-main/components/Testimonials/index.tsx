@@ -2,34 +2,56 @@ import { Testimonial } from "@/types/testimonial";
 import SectionTitle from "../Common/SectionTitle";
 import SingleTestimonial from "./SingleTestimonial";
 
-const testimonialData: Testimonial[] = [
+const testimonialData: ({ image: string; star: number; name: string; id: number; content: string } | { image: string; star: number; name: string; id: number; content: string } | { image: string; star: number; name: string; id: number; content: string } | { image: string; star: number; name: string; id: number; content: string } | { name: string; id: number; content: string })[] = [
   {
     id: 1,
-    name: "Arthur",
-    designation: "Community manager Scott Premium",
+    name: "CLara",
     content:
-    "J'ai été surpris par la rapidité d'exécution, la vidéo est top. Ravis du résultat ! ",
-    image: "/images/testimonials/auth-01.png",
-    star: 4,
+    "Merci beaucoup pour la qualité du travail fourni, une équipe qui sait être à l’écoute des clients et se montre toujours très agréable et disponible ! Je recommande vivement. ",
+    image: "/images/testimonials/unnamed.png",
+    star: 5,
   },
   {
     id: 2,
-    name: "Norah",
-    designation: "Micro - influenceuse Tiktok",
+    name: "Christopher",
     content:
-    "Pour le prix le service est très complet, Les thématiques sont toujours mis en valeurs, avec beaucoup de créativité.",
-    image: "/images/testimonials/auth-02.png",
+    "Merci Titovideo pour votre écoute, votre réactivité et votre professionnalisme.\n" +
+        "Vous avez parfaitement répondu à ma demande.\n" +
+        "\n" +
+        "Je vais vous recommander auprès de mon entourage. Je vous dit à bientôt.",
+    image: "/images/testimonials/christopher.png",
     star: 5,
   },
   {
     id: 3,
-    name: "Amy",
-    designation: "Prothésiste Ongulaire ",
+    name: "Alexandre Ozini",
     content:
-    "J'ai testé et je suis plutôt satisfaite de ma vidéo. Mes attentes ont bien été prises en compte, et sans supplément, la révision est gratuite également donc pas de mauvaise surprise ! ",
-    image: "/images/testimonials/auth-03.png",
+    "Très professionnels, à l'écoute et réactifs, j'ai reçu ma vidéo en 24h.  Si vous avez besoin de déléguer vos montages je vous recommande Titovideo !",
+    image: "/images/testimonials/alexandre.png",
     star: 5,
   },
+  {
+    id: 4,
+    name: "Lucie Gerard",
+    content: "Super montage vidéo pour le mariage de ma sœur !! Merci beaucoup à toute l’équipe.",
+    image: "/images/testimonials/lucie.png",
+    star:5,
+  },
+  {id:5,
+    name: "Tom Toulgoat",
+    content:"Montage réalisé grâce à Titovideo.\n" +
+        "Je suis satisfait de la prestation réalisée.\n" +
+        "Merci",
+    image:"/images/testimonials/tom.png",
+    star:5,
+  },
+  {
+    id:6,
+    name: "Ulysse Jaffré",
+    content:"Très professionnel et efficace ! Un rendu de qualité.",
+    image:"/images/testimonials/ulysse.png",
+    star:5,
+  }
   
 ];
 

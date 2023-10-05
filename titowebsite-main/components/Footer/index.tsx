@@ -141,7 +141,7 @@ const Footer = () => {
                       className="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
                     >
                       {" "}
-                      Nos tarifs{" "}
+                      Nos offres{" "}
                     </a>
                   </li>
                   <li>
@@ -150,7 +150,7 @@ const Footer = () => {
                       className="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
                     >
                       {" "}
-                      Postuler{" "}
+                      nous rejoindre{" "}
                     </a>
                   </li>
                   <li>

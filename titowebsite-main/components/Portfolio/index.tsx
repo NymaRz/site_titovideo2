@@ -4,7 +4,7 @@ import styles from './Portfolio.module.css';
 const Portfolio = () => {
   return (
     <>
-      <section id="portfolio" className="relative z-10 py-36 md:py-40 lg:py-28">
+      <section id="portfolio" className="relative z-10 py-36 md:py-40 lg:py-28 pb-20">
       <div className="px-4 xl:container">
         
         <div

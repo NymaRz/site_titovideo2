@@ -20,22 +20,9 @@ const Pricing = () => {
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           <Fade left>
-          <PricingBox
-            packageName="Capatation photographique"
-            link="short"
-            price="200"
-            duration={isMonthly ? "mo" : "yr"}
-            subtitle="Livraison en 7 jours"
-          >
-            <OfferList text="Un chef de projet" status="active" />
-            <OfferList text="captation photographique à partir de 2H de présence " status="active" />
-            <OfferList text="post production des photos " status="active" />
-          </PricingBox>
-
-
             <PricingBox
-                packageName="Post-production"
-                price="250"
+                packageName="Montage youtube"
+                price="350"
                 link="youtube"
                 duration={isMonthly ? "mo" : "yr"}
                 subtitle="Livraison en 72h."
@@ -49,17 +36,35 @@ const Pricing = () => {
               <OfferList text=" Effet fx" status="active" />
             </PricingBox>
 
+
+            <PricingBox
+                packageName="Production vidéo"
+                price="600"
+                link="premium"
+                duration={isMonthly ? "mo" : "yr"}
+                subtitle="Livraison en 7 jours"
+            >
+              <OfferList text=" Un chef de projet " status="active" />
+              <OfferList text=" captation video à partie de 2H de présence  " status="active" />
+              <OfferList text=" post production  " status="active" />
+            </PricingBox>
+
           <PricingBox
-            packageName="Production vidéo"
-            price="400"
-            link="premium"
+            packageName="Pack Event"
+            link="short"
+            price="2000"
             duration={isMonthly ? "mo" : "yr"}
             subtitle="Livraison en 7 jours"
           >
-            <OfferList text=" Un chef de projet " status="active" />
-            <OfferList text=" captation video à partie de 2H de présence  " status="active" />
-            <OfferList text=" post production  " status="active" />
+            <OfferList text="Un chef de projet" status="active" />
+            <OfferList text="captation photographique à partir de 2H de présence " status="active" />
+            <OfferList text="post production des photos " status="active" />
           </PricingBox>
+
+
+
+
+
 
           </Fade>
 

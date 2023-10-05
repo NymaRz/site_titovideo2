@@ -7,8 +7,8 @@ import { GiGamepad,GiVideoCamera,GiPublicSpeaker} from "react-icons/gi";
 import {PiCameraDuotone} from "react-icons/pi";
 import {MdEvent} from "react-icons/md";
 import { loadStripe } from '@stripe/stripe-js';
-import stripePromise from './stripeConfig';
 import {router} from "next/client";
+import {CardElement} from "@stripe/react-stripe-js";
 
 
 const MontageForm = () => {
@@ -63,7 +63,7 @@ const submit = async (e) => {
         }),
     }).then((res) => {
         if (res.ok) {
-            router.push("/success");
+            router.push("/paiment");
         }
     })
     localStorage.getItem("tarifs")

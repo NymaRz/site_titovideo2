@@ -12,7 +12,7 @@ import {
 import Link from 'next/link';
 import {mockSession} from "next-auth/client/__tests__/helpers/mocks";
 import {signOut} from "next-auth/react";
-
+import AdminLayout from "@/app/adminLayout";
 
 
 interface User {
@@ -27,6 +27,7 @@ interface User {
 
 export default function UsersTable({ users }: { users: User[] }) {
   return (
+<AdminLayout>
     <section id="portfolio" className="relative z-10 py-36 md:py-40 lg:py-28">
     
         <SectionTitle
@@ -51,6 +52,20 @@ export default function UsersTable({ users }: { users: User[] }) {
                           
           </Link>
 
+             <Link
+            href="@/components/admin/page"
+            className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 ml-4"
+            >
+                 Commandes en cours
+             </Link>
+
+             <Link
+            href="@/components/admin/page"
+            className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 ml-4"
+            >
+                 Commandes finalisées
+                </Link>
+
           <div style={{ width: '20px' }} />
 
                        
@@ -60,5 +75,6 @@ export default function UsersTable({ users }: { users: User[] }) {
        
     
     </section>
+</AdminLayout>
   );
 }

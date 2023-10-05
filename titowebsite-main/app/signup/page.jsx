@@ -51,7 +51,7 @@ const SignupPage = () => {
       if (res.ok) {
         const form = e.target;
         form.reset();
-        router.push("/");
+        ush("/");
       } else {
         console.log("User registration failed.");
       }

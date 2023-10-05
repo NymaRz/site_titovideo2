@@ -29,7 +29,6 @@ const getMessages = async () => {
 export default async function BasicTable (){
     const {commande}  = await getMessages();
 
-
   return (
     <section id="portfolio" className="relative z-10 py-16 md:py-20 lg:py-28">
 
@@ -52,6 +51,7 @@ export default async function BasicTable (){
         </TableHead>
         <TableBody>
 
+          <TableCell align="right">Format</TableCell>
         {commande.map((t) => (
             <TableRow
               key={t._id}
@@ -64,9 +64,8 @@ export default async function BasicTable (){
               <TableCell  >{t.email}</TableCell>
               <TableCell align="right">Info</TableCell>
               <TableCell>{t.sound}</TableCell>
-              <TableCell align="right">ID</TableCell>
+                <>{t.date}</>
               <TableCell align="right">{t._id}</TableCell>
-              <TableCell align="right">Format</TableCell>
               <TableCell align="right">{t.selectedChoice}</TableCell>
             </TableRow>
           ))}
