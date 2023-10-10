@@ -62,7 +62,7 @@ const postuler = () => {
            onChange={(e) => setUsername(e.target.value)}
            value={username}
            type="text"
-           placeholder='John Doe'
+           placeholder='Nom & Prénom'
            className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
           />
         </div>
@@ -73,7 +73,7 @@ const postuler = () => {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             type="email"
-            placeholder='johndoe@gmail.com'
+            placeholder='Email'
             className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
           />
         </div>
@@ -83,7 +83,7 @@ const postuler = () => {
             onChange={(e) => setPhone(e.target.value)}
             value={telephone}
             type="text"
-            placeholder='+33 0754679804'
+            placeholder='Votre numéro'
             className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
           />
         </div>

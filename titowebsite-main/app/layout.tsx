@@ -54,6 +54,7 @@ export default function RootLayout({
               {children}
             </Elements>
           <ScrollToTop />
+          <Footer/>
       </NextAuthProvider>
       </body>
     </html>
