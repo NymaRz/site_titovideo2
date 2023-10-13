@@ -10,7 +10,6 @@ import {
   Text
 } from '@tremor/react';
 import Link from 'next/link';
-import {mockSession} from "next-auth/client/__tests__/helpers/mocks";
 import {signOut} from "next-auth/react";
 import AdminLayout from "@/app/adminLayout";
 
@@ -25,9 +24,9 @@ interface User {
 
 
 
-export default function UsersTable({ users }: { users: User[] }) {
+export default function UsersTable() {
   return (
-<AdminLayout>
+
     <section id="portfolio" className="relative z-10 py-36 md:py-40 lg:py-28">
     
         <SectionTitle
@@ -75,6 +74,6 @@ export default function UsersTable({ users }: { users: User[] }) {
        
     
     </section>
-</AdminLayout>
+
   );
 }
