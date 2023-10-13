@@ -64,8 +64,9 @@ export default async function BasicTable (){
               <TableCell  >{t.email}</TableCell>
               <TableCell align="right">Info</TableCell>
               <TableCell>{t.sound}</TableCell>
-                <>{t.date}</>
-              <TableCell align="right">{t._id}</TableCell>
+                <TableCell align="right">Date</TableCell>
+                <TableCell>{t.date}</TableCell>
+                <TableCell align="right">Format</TableCell>
               <TableCell align="right">{t.selectedChoice}</TableCell>
             </TableRow>
           ))}
