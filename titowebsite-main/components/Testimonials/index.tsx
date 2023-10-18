@@ -1,7 +1,7 @@
 import { Testimonial } from "@/types/testimonial";
 import SectionTitle from "../Common/SectionTitle";
 import SingleTestimonial from "./SingleTestimonial";
-
+import SimpleSlider from "@/components/SimpleSlider/slider";
 const testimonialData: ({ image: string; star: number; name: string; id: number; content: string } | { image: string; star: number; name: string; id: number; content: string } | { image: string; star: number; name: string; id: number; content: string } | { image: string; star: number; name: string; id: number; content: string } | { name: string; id: number; content: string })[] = [
   {
     id: 1,
@@ -200,6 +200,7 @@ const Testimonials = () => {
           </defs>
         </svg>
       </div>
+      <SimpleSlider/>
     </section>
   );
 };
