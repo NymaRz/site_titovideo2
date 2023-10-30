@@ -25,6 +25,13 @@ const menuData: Menu[] = [
     title: "Nous rejoindre",
     path: "/postuler",
     newTab: false,
+  },
+
+  {
+    id: 6,
+    title: "A propos",
+    path: "/propos",
+    newTab: false,
   }
 ];
 export default menuData;
