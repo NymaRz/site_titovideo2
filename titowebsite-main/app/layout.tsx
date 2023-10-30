@@ -34,7 +34,7 @@ export default function RootLayout({
 }) {
 
 
-  const hideHeaderAndFooter = window.location.pathname === '/admin_client' || '/admin';
+  const hideHeaderAndFooter = window.location.pathname === ('/admin_client' || '/admin');
   return (
     <html lang="en">
         {/*
