@@ -34,7 +34,7 @@ export default function RootLayout({
 }) {
 
 
-
+  const hideHeaderAndFooter = window.location.pathname === '/admin_client';
   return (
     <html lang="en">
         {/*
@@ -45,11 +45,11 @@ export default function RootLayout({
       <body className="dark:bg-black">
       <NextAuthProvider>
           <Elements stripe={stripePromise}>
-           <Header />
+          {!hideHeaderAndFooter && <Header />}
               {children}
           </Elements>
           <ScrollToTop />
-          <Footer/>
+          {!hideHeaderAndFooter && <Footer />}
       </NextAuthProvider>
       </body>
     </html>
