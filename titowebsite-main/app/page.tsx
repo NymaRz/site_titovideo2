@@ -10,7 +10,6 @@ import Testimonials from '@/components/Testimonials'
 import UserInfo from '@/components/UserInfo'
 import Team from '@/components/Team'
 import Image from 'next/image'
-import AutoPlayMethods from '@/components/slider'
 import AboutComponent from '@/components/About'
 import About from '@/components/About'
 

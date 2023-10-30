@@ -49,23 +49,48 @@ const About = () => {
   }, []);
 
   return (
-    <section className="relative z-10 py-16 md:py-20 lg:py-28">
-    <div className="container">
-      <SectionTitle
-        title="Nos services"
-        paragraph="Titovidéo c'est aussi des services de qualité pour vous accompagner dans vos projets."
-        center
-        mb="80px"
-      />
-    <div className="About">
-      <SmartSlider
-        slides={slidesArray}
-        buttonShape="square"
-        activeSlide={currentIndex} // Utilisez currentIndex pour afficher la diapositive active
-      />
-    </div>
-    </div>
-    </section>
+      <>
+        <section className="relative z-10 py-16 md:py-20 lg:py-28">
+          <div className="container">
+            <SectionTitle
+                title="Nos services"
+                paragraph="Titovidéo c'est aussi des services de qualité pour vous accompagner dans vos projets."
+                center
+                mb="80px"/>
+            <div className="About">
+              <SmartSlider
+                  slides={slidesArray}
+                  buttonShape="square"
+                  activeSlide={currentIndex} // Utilisez currentIndex pour afficher la diapositive active
+              />
+            </div>
+          </div>
+        </section>
+        <style jsx>{`
+          .About {
+           
+            width: 50%;
+            overflow: hidden;
+            border-radius: 10px;
+          }
+
+          .About .SmartSlider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+          }
+
+          .About .SmartSlider .SmartSlider-slides {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+          }
+
+          //fin du style
+        `}</style>
+      </>
   );
 };
 

@@ -12,18 +12,6 @@ import {
 import Link from 'next/link';
 import {signOut} from "next-auth/react";
 import AdminLayout from "@/app/adminLayout";
-
-
-interface User {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  cv: string;
-}
-
-
-
 export default function UsersTable() {
   return (
 

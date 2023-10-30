@@ -27,8 +27,7 @@ const stripePromise = loadStripe('pk_test_oKhSR5nslBRnBZpjO6KuzZeX');
 
 export default function RootLayout({
   children,const: options = {
-        // passing the client secret obtained from the server
-        clientSecret: 'pk_test_oKhSR5nslBRnBZpjO6KuzZeX',
+    // ...
     }
 }:{
 
