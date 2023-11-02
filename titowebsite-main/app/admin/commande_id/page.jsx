@@ -14,7 +14,7 @@ function Commande({userId}) {
     useEffect(() => {
         async function getMessages() {
             try {
-                const response = await fetch('/api/commandes_id/${userId}', {
+                const response = await fetch('/api/commandes_id', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -48,15 +48,13 @@ function Commande({userId}) {
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead className="bg-gray-50 dark:bg-gray-800">
                             <TableRow>
-
-                                <TableCell align="right">Email</TableCell>
-                                <TableCell align="right">Musique</TableCell>
-                                <TableCell align="right">Date</TableCell>
-                                <TableCell align="right">ID</TableCell>
-                                <TableCell align="right">Style</TableCell>
-                                <TableCell align="right">Format</TableCell>
-
-
+                                <TableCell>Id</TableCell>
+                                <TableCell >Email</TableCell>
+                                <TableCell >Sound</TableCell>
+                                <TableCell >Date</TableCell>
+                                <TableCell align="right">Id</TableCell>
+                                <TableCell align="right">selectedChoice</TableCell>
+                                <TableCell align="right">selectedStyle</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

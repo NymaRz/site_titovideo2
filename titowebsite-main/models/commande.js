@@ -1,6 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 const commandeSchema = new Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
 
     email:{
