@@ -1,5 +1,5 @@
 import React from 'react';
-import './propos.css';
+
 const Propos = () => {
 
     // @ts-ignore
@@ -18,7 +18,7 @@ const Propos = () => {
                 <img
                     src="/images/hero/shape-01.svg"
                     alt="illustration"
-                    className="absolute top-0 right-0 z-0 hidden w-64 lg:w-1/2 lg:block"
+                    className="absolute top-0 right-0 z-[2] hidden w-64 lg:w-1/2 lg:block -mt-20 -mr-32"
                 />
             <div className="flex flex-col items-center justify-center w-full ">
                 <video width={500} height={500} controls className="rounded-lg shadow-lg">
@@ -38,8 +38,7 @@ const Propos = () => {
                 D'abord dédié aux createurs de contenus, ma mission est simple: démocratiser la vente de service de montage vidéo en rendant l'offre accessible et personnnalisée.
                 </p>
             </div>
-            </div>
-        </div>
+            </div>        </div>
                 </section>
 
 
