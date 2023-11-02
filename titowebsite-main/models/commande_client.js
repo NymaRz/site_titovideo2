@@ -1,5 +1,5 @@
 import mongoose, { Schema, models } from "mongoose";
-
+import Commande from "./commande";
 const clientSchema = new Schema(
     {
         name: {
@@ -14,6 +14,21 @@ const clientSchema = new Schema(
             type: String,
             required: true,
         },
+        // Ajoutez d'autres champs utilisateur ici
+        commande: [{ type: Schema.Types.ObjectId, ref: "Commande" }],
+        selectedChoice: {
+            type: String,
+        },
+        sound: {
+            type: String,
+        },
+        etat: {
+            type: String,
+            enum: ["En attente", "En cours", "Terminé"],
+            default: "En attente",
+        },
+
+
     },
     { timestamps: true }
 );

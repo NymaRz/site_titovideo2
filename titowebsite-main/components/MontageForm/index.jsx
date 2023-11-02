@@ -45,6 +45,8 @@ const handleSubmit = async (e) => {
 };
 
 
+
+
 const submit = async (e) => {
     //envoie du formulaire sans stripe
     e.preventDefault();
@@ -63,7 +65,7 @@ const submit = async (e) => {
         }),
     }).then((res) => {
         if (res.ok) {
-            router.push("/paiment");
+            router.push("/");
         }
     })
     localStorage.getItem("tarifs")

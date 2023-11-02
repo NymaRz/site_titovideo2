@@ -1,23 +1,19 @@
 import connectDB from "@/libs/mongodb";
 import Commande from "@/models/commande";
+import User from "@/models/commande_client";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import connectMongoDB from "../../../../libs/mongodb";
+import connectMongoDB from "../../../libs/mongodb";
+
 
 // Connectez-vous à la base de données MongoDB
 connectDB();
 
-export default async (req, res) => {
-    const { userId } = req.query;
+export async function GET(request) {
 
-    try {
-        // Recherchez les commandes de l'utilisateur
-        const orders = await Commande.find({ userId }).exec();
+    // TEST DE RECUPERATION DE LA COMMANDE
+  const userId = request.locals.user.id;
+    const commande = await Commande.findOne({ userId: userId });
+    return NextResponse.json({ commande }, { status: 200 });
+}
 
-        // Répondez avec les commandes trouvées
-        res.status(200).json(orders);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erreur lors de la récupération des commandes.' });
-    }
-};
