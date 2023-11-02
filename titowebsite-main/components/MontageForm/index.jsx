@@ -88,6 +88,7 @@ const submit = async (e) => {
 
 
 
+
   return (
     <section className="relative z-10 overflow-hidden pt-30 pb-16 md:pb-20 lg:pt-[70px] lg:pb-28">
     <div className="container">
@@ -103,9 +104,9 @@ const submit = async (e) => {
               <label className="block text-sm font-medium mb-1">Nom</label>
                 <input
                     type="text"
-                    placeholder='Nom'
                     className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     onChange={(e) => setName(e.target.value)}
+
                 />
             </div>
 
@@ -113,9 +114,11 @@ const submit = async (e) => {
           <label className="block text-sm font-medium mb-1">Email</label>
           <input
             type="email"
-            placeholder='Email'
+            placeholder="Email de votre compte titovideo"
             className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+
             onChange={(e) => setEmail(e.target.value)}
+
           />
         </div>
         
