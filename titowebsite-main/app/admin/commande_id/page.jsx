@@ -1,58 +1,82 @@
 "use client"
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react';
 import SectionTitle from '@/components/Common/SectionTitle';
-import { useSession } from "next-auth/react";
-function Commande({userId}) {
-    const { data: session } = useSession();
+import { useSession } from 'next-auth/react';
 
-    return (
+const getMessages = async () => {
+  try {
+    const res = await fetch(`http://localhost:3000/api/commandes_id`, {
+      method: "GET",
+      cache: "no-store",
+    });
 
+    if (!res.ok) {
+      throw new Error("Failed to fetch messages");
+    }
 
-        <section id="portfolio" className="relative z-10 py-16 md:py-20 lg:py-28">
-            <h1 className="text-2xl font-bold mb-4">Bienvenue sur la page admin  {session?.user?.name}</h1>
-            <SectionTitle
-                paragraph="Vous avez accès en temps réel aux demandes des clients"
-                center
-                width="635px"
-            />
-            <div className="container px-4 mx-auto">
-                <TableContainer  className="bg-white shadow-md rounded my-6">
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead className="bg-gray-50 dark:bg-gray-800">
-                            <TableRow>
-                                <TableCell>Id</TableCell>
-                                <TableCell >Email</TableCell>
-                                <TableCell >Sound</TableCell>
-                                <TableCell >Date</TableCell>
-                                <TableCell align="right">Id</TableCell>
-                                <TableCell align="right">selectedChoice</TableCell>
-                                <TableCell align="right">selectedStyle</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        <p className="bg-black">Email {session?.user?.email}</p>
-                            <p className="bg-black">Id {session?.user?.id}</p>
-                            <p className="bg-black">Name {session?.user?.name}</p>
-                            <p className="bg-black">Image {session?.user?.commande}</p>
+    return res.json();
+  } catch (error) {
+    console.error("Error loading messages: ", error);
+    return [];
+  }
+};
 
-
-
-
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </div>
-        </section>
-    );
-
+export default function Commande({ userId }) {
+  const { data: session } = useSession();
+  const [commandes, setCommandes] = useState([]);
+  
+  useEffect(() => {
+    getMessages()
+      .then((data) => {
+        // Filtrer les commandes par email
+        console.log(data);
+        const filteredCommandes = data.commande.filter(
+          (commande) => (
+            commande.email === session?.user?.email ||
+            (commande.email && commande.email === session?.user?.email)
+          )
+        );
+        setCommandes(filteredCommandes);
+      })
+      .catch((error) => {
+        console.error("Error fetching commandes:", error);
+      });
+  }, [session]);
+  console.log('commandes filtrés', commandes);
+  return (
+    <section id="portfolio" className="relative z-10 py-16 md:py-20 lg:py-28">
+      <h1 className="text-2xl font-bold mb-4">
+        Bienvenue sur la page admin {session?.user?.name}
+      </h1>
+      <SectionTitle
+        paragraph="Vous avez accès en temps réel aux demandes des clients"
+        center
+        width="635px"
+      />
+      <div className="container px-4 mx-auto">
+        <div className="shadow-md rounded my-6 p-4">
+          <div className="flex flex-col">
+            <p className="text-black-700">
+              <strong>Email:</strong> {session?.user?.email}
+            </p>
+            <p className="text-black-700">
+              <strong>Id:</strong> {session?.user?.id}
+            </p>
+            <p className="text-black-700">
+              <strong>Name:</strong> {session?.user?.name}
+            </p>
+            <p className="text-black-700">
+              <strong>Commandes:</strong>
+            </p>
+            <ul>
+              {commandes.map((commande, index) => (
+                <li key={index}>{commande._id}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
-
-export default Commande;
