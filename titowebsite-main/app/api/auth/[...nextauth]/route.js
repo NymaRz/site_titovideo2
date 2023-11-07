@@ -70,6 +70,7 @@ const authOptions = {
               body: JSON.stringify({
                 name,
                 email,
+                sound
               }),
             });
 

@@ -6,39 +6,19 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+
 import {useEffect, useState} from "react";
 import SectionTitle from '@/components/Common/SectionTitle';
+import { useSession } from "next-auth/react";
 function Commande({userId}) {
-    const [commandes, setCommandes] = useState([]);
-    useEffect(() => {
-        async function getMessages() {
-            try {
-                const response = await fetch('/api/commandes_id', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
+    const { data: session } = useSession();
 
-
-                const data = await response.json();
-                setCommandes(data.commandes);
-            } catch (error) {
-                console.log(error);
-
-
-}
-        }
-        getMessages().then(r => console.log(r));
-    }, [userId]);
     return (
 
 
         <section id="portfolio" className="relative z-10 py-16 md:py-20 lg:py-28">
-
+            <h1 className="text-2xl font-bold mb-4">Bienvenue sur la page admin  {session?.user?.name}</h1>
             <SectionTitle
-                title="Bienvenue sur la page admin"
                 paragraph="Vous avez accès en temps réel aux demandes des clients"
                 center
                 width="635px"
@@ -58,22 +38,14 @@ function Commande({userId}) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {commandes.map((t) => (
-                                <TableRow
-                                    key={t._id}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell component="th" scope="row">
+                        <p className="bg-black">Email {session?.user?.email}</p>
+                            <p className="bg-black">Id {session?.user?.id}</p>
+                            <p className="bg-black">Name {session?.user?.name}</p>
+                            <p className="bg-black">Image {session?.user?.commande}</p>
 
-                                    </TableCell>
-                                    <TableCell  >{t.email}</TableCell>
-                                    <TableCell>{t.sound}</TableCell>
-                                    <TableCell>{t.date}</TableCell>
-                                    <TableCell align="right">{t._id}</TableCell>
-                                    <TableCell align="right">{t.selectedChoice}</TableCell>
-                                    <TableCell align="right">{t.selectedStyle}</TableCell>
-                                </TableRow>
-                            ))}
+
+
+
                         </TableBody>
                     </Table>
                 </TableContainer>

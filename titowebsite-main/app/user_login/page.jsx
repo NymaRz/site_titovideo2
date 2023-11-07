@@ -34,7 +34,7 @@ export default function Login() {
         return;
       }
 
-      router.replace("/admin")
+      router.push("/admin")
     } catch (error) {
       console.log(error);
     }
