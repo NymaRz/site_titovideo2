@@ -1,5 +1,6 @@
 import mongoose, { Schema, models } from "mongoose";
 import Commande from "./commande";
+
 const clientSchema = new Schema(
     {
         name: {
@@ -17,10 +18,10 @@ const clientSchema = new Schema(
         // Ajoutez d'autres champs utilisateur ici
         commande: [{ type: Schema.Types.ObjectId, ref: "Commande" }],
         selectedChoice: {
-            type: String,
+            type: Array,
         },
         sound: {
-            type: String,
+            type: Array,
         },
         etat: {
             type: String,
