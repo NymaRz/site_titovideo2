@@ -66,14 +66,35 @@ export default function Commande({ userId }) {
             <p className="text-black-700">
               <strong>Name:</strong> {session?.user?.name}
             </p>
-            <p className="text-black-700">
-              <strong>Commandes:</strong>
-            </p>
-            <ul>
+            <div className="flex flex-col space-y-4">
+              <span className="text-gray-700 font-bold">Commandes:</span>
               {commandes.map((commande, index) => (
-                <li key={index}>{commande._id}</li>
+                  <div key={index} className=" p-3 rounded shadow">
+                    <p className="font-bold">ID:</p> {commande._id}
+                    <p className="font-bold">Email:</p> {commande.email}
+                    <p className="font-bold">Name:</p> {commande.name}
+                    <p className="font-bold">Etat de la commande :</p> {commande.etat}
+
+                    <div>
+                      <p className="font-bold">Selected Choice:</p>
+                      <ul className="list-disc pl-5">
+                        {commande.selectedChoice?.map((choice, choiceIndex) => (
+                            <li key={choiceIndex}>{choice}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-bold">Sound:</p>
+                      <ul className="list-disc pl-5">
+                        {commande.sound.map((sound, soundIndex) => (
+                            <li key={soundIndex}>{sound}</li>
+                        ))}
+                      </ul>
+
+                    </div>
+                  </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>
