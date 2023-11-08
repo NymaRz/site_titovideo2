@@ -17,8 +17,7 @@ export async function GET(request) {
         return NextResponse.json({commande})
     }
 
-    
-=======
+
 catch (error) {
 
         console.log(error)
