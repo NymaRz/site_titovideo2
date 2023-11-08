@@ -15,11 +15,13 @@ const getMessages = async () => {
             throw new Error("Failed to fetch messages");
         }
 
+
         return res.json();
     } catch (error) {
         console.error("Error loading messages: ", error);
         return [];
-    }
+
+      
 };
 
 export default function Commande({ userId }) {
@@ -98,4 +100,6 @@ export default function Commande({ userId }) {
             </div>
         </section>
     );
+
 }
+
