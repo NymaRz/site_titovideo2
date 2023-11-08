@@ -16,7 +16,11 @@ export async function GET(request) {
         const commande = await User.find().select('email sound name selectedChoice etat')
         return NextResponse.json({commande})
     }
+
+    
+=======
 catch (error) {
+
         console.log(error)
     }
 }
