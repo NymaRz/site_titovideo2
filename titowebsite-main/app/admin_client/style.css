@@ -1,0 +1,12 @@
+@keyframes rotateAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.link:hover .link-text {
+    animation: rotateAnimation 2s linear infinite; /* Applique l'animation au texte du lien au survol */
+}
