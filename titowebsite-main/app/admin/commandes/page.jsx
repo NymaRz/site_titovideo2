@@ -1,11 +1,12 @@
 "use client"
+
 import * as React from 'react';
-
-
 import {getSession} from 'next-auth/react'
-
 import SectionTitle from '@/components/Common/SectionTitle';
 import Button from "@mui/material/Button";
+
+
+
 
 const getMessages = async () => {
     try {
@@ -32,14 +33,33 @@ const getMessages = async () => {
           });
 
           if (!res.ok) {
-            throw new Error("Failed to fetch messages");
+            throw new Error("Failed to delete message");
           }
 
           return res.json();
         } catch (error) {
-          console.log("Error loading messages: ",error);
+          console.log("Error deleting message: ", error);
         }
-        };
+
+    }
+
+    const updateCommande = async (id) => {
+        try {
+          const res = await fetch(`http://localhost:3000/api/update_status`, {
+            method: "PATCH",
+            cache: "no-store",
+          });
+
+          if (!res.ok) {
+            throw new Error("Failed to update message");
+          }
+
+          return res.json();
+        } catch (error) {
+          console.log("Error updating message: ", error);
+        }
+
+    }
 
 export default async function BasicTable (){
     const {commande}  = await getMessages();
@@ -60,10 +80,11 @@ export default async function BasicTable (){
               <table className="table-auto border-collapse w-full">
                 <thead>
                   <tr className="rounded-lg text-sm font-medium text-gray-700 text-left" style={{fontSize: "0.9674rem"}}>
-                    <th className="px-4 py-2 bg-gray-200 " style={{backgroundColor: "#f8f8f8"}}>Email</th>
-                    <th className="px-4 py-2 " style={{backgroundColor: "#f8f8f8"}}>Format</th>
-                    <th className="px-4 py-2 " style={{backgroundColor: "#f8f8f8"}}>Description</th>
-                    <th className="px-4 py-2 " style={{ backgroundColor: "#f8f8f8" }}>Type de prestation</th>
+                    <th className="px-4 py-2 bg-gray-200 ">Email</th>
+                    <th className="px-4 py-2 ">Format</th>
+                    <th className="px-4 py-2 ">Description</th>
+                    <th className="px-4 py-2 ">Type de prestation</th>
+                    <th className="px-4 py-2 ">Etat</th>
 
                     </tr>
                 </thead>
@@ -74,18 +95,13 @@ export default async function BasicTable (){
                     <td className="px-4 py-4">{commande.selectedChoice}</td>
                     <td className="px-4 py-4">{commande.sound}</td>
                     <td className="px-4 py-4">{commande.telephone}</td>
-                    <td className="px-4 py-4">{commande.adresse}</td>
-                    <td className="px-4 py-4">{commande.codepostal}</td>
-                    <td className="px-4 py-4">{commande.ville}</td>
-                    <td className="px-4 py-4">{commande.pays}</td>
                     <td className="px-4 py-4">{commande.date}</td>
-                    <td className="px-4 py-4">{commande.heure}</td>
-                    <td className="px-4 py-4">{commande.typeprestation}</td>
+                    <td className="px-4 py-4">{commande.etat}</td>
                     <Button variant="contained" className="bg-red-500 hover:bg-red-600 text-white" onClick={() => deleteCommande(commande.id)}>
                         Supprimer
                     </Button>
 
-                    <Button variant="contained" className="bg-green-500 hover:bg-green-600 text-white">
+                    <Button variant="contained" className="bg-green-500 hover:bg-green-600 text-white" onClick={() => updateCommande(commande.id)}>
                         Valider
                     </Button>
                   </tr>
