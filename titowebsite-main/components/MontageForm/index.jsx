@@ -65,7 +65,7 @@ const submit = async (e) => {
         }),
     }).then((res) => {
         if (res.ok) {
-            router.push("/");
+            router.push("/success");
         }
     })
     localStorage.getItem("tarifs")

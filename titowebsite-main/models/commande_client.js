@@ -1,5 +1,4 @@
 import mongoose, { Schema, models } from "mongoose";
-import Commande from "./commande";
 
 const clientSchema = new Schema(
     {
@@ -27,6 +26,11 @@ const clientSchema = new Schema(
             type: String,
             enum: ["En attente", "En cours", "Terminé"],
             default: "En attente",
+        },
+        tito: {
+            type: Number,
+            default:1
+
         },
 
 

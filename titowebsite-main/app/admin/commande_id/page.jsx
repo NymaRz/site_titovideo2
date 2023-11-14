@@ -15,17 +15,14 @@ const getMessages = async () => {
             throw new Error("Failed to fetch messages");
         }
 
-
-        return res.json();
+        return await res.json();
     } catch (error) {
-        console.error("Error loading messages: ", error);
-        return [];
-
-      
+        throw new Error(error.message);
+    }
 };
 
 export default function Commande({ userId }) {
-    const {data: session} = useSession();
+    const { data: session } = useSession();
     const [commandes, setCommandes] = useState([]);
 
     useEffect(() => {
@@ -100,6 +97,4 @@ export default function Commande({ userId }) {
             </div>
         </section>
     );
-
 }
-

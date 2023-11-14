@@ -4,14 +4,27 @@ import mongoose from "mongoose";
 import connectMongoDB from "../../../libs/mongodb";
 
 
-//supprimer une commande
-export async function DELETE(request) {
-    const {email} = request.query;
-    await connectMongoDB();
-    try {
-        await User.findByIdAndDelete(email);
-        return NextResponse.json({msg: ["Commande deleted successfully"]}, {status: 200});
-    } catch (error) {
-        console.log(error);
-    }
+
+
+export default async function deleteCommand(req, res) {
+
+    const { method, body } = req;
+await connectMongoDB();
+
+switch (method) {
+    case "DELETE":
+        try {
+            const { id } = body;
+            const user = await User.findById(id);
+            if (!user) {
+                return res.status(400).json({ success: false });
+            }
+            await User.deleteOne({ _id: id });
+            return res.status(200).json({ success: true, data: {} });
+        } catch (error) {
+            return res.status(400).json({ success: false });
+        }
+        break;
+}
+
 }
