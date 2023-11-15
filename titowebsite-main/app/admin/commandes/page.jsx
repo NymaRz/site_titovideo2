@@ -1,13 +1,12 @@
+"use client"
+
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import {getSession} from 'next-auth/react'
-import Paper from '@mui/material/Paper';
 import SectionTitle from '@/components/Common/SectionTitle';
+import Button from "@mui/material/Button";
+
+
+
 
 const getMessages = async () => {
     try {
@@ -26,6 +25,42 @@ const getMessages = async () => {
     }
   };
 
+    const deleteCommande = async (id) => {
+        try {
+          const res = await fetch(`http://localhost:3000/api/delete_command`, {
+            method: "DELETE",
+            cache: "no-store",
+          });
+
+          if (!res.ok) {
+            throw new Error("Failed to delete message");
+          }
+
+          return res.json();
+        } catch (error) {
+          console.log("Error deleting message: ", error);
+        }
+
+    }
+
+    const updateCommande = async (id) => {
+        try {
+          const res = await fetch(`http://localhost:3000/api/update_status`, {
+            method: "PATCH",
+            cache: "no-store",
+          });
+
+          if (!res.ok) {
+            throw new Error("Failed to update message");
+          }
+
+          return res.json();
+        } catch (error) {
+          console.log("Error updating message: ", error);
+        }
+
+    }
+
 export default async function BasicTable (){
     const {commande}  = await getMessages();
 
@@ -39,41 +74,46 @@ export default async function BasicTable (){
       width="635px"
     />
       <div className="container px-4 mx-auto">
-      <TableContainer  className="bg-white shadow-md rounded my-6">
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead className="bg-gray-50 dark:bg-gray-800">
-          <TableRow>
+        <div className="flex flex-wrap -mx-4">
+          <div className="w-full mb-12 px-4">
+            <div className="overflow-x-auto">
+              <table className="table-auto border-collapse w-full">
+                <thead>
+                  <tr className="rounded-lg text-sm font-medium text-gray-700 text-left" style={{fontSize: "0.9674rem"}}>
+                    <th className="px-4 py-2 bg-gray-200 ">Email</th>
+                    <th className="px-4 py-2 ">Format</th>
+                    <th className="px-4 py-2 ">Description</th>
+                    <th className="px-4 py-2 ">Type de prestation</th>
+                    <th className="px-4 py-2 ">Etat</th>
 
+                    </tr>
+                </thead>
+                <tbody className="text-sm font-normal text-gray-700">
+                {commande.map((commande) => (
+                  <tr key={commande.id} className="hover:bg-gray-100 border-b border-gray-200 py-10">
+                    <td className="px-4 py-4">{commande.email}</td>
+                    <td className="px-4 py-4">{commande.selectedChoice}</td>
+                    <td className="px-4 py-4">{commande.sound}</td>
+                    <td className="px-4 py-4">{commande.telephone}</td>
+                    <td className="px-4 py-4">{commande.date}</td>
+                    <td className="px-4 py-4">{commande.etat}</td>
+                    <Button variant="contained" className="bg-red-500 hover:bg-red-600 text-white" onClick={() => deleteCommande(commande.id)}>
+                        Supprimer
+                    </Button>
 
+                    <Button variant="contained" className="bg-green-500 hover:bg-green-600 text-white" onClick={() => updateCommande(commande.id)}>
+                        Valider
+                    </Button>
+                  </tr>
+                ))}
+                </tbody>
+                </table>
 
+            </div>
+            </div>
+            </div>
+            </div>
+            </section>
 
-          </TableRow>
-        </TableHead>
-        <TableBody>
-
-          <TableCell align="right">Format</TableCell>
-        {commande.map((t) => (
-            <TableRow
-              key={t._id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-
-              </TableCell>
-              <TableCell align="right">Email</TableCell>
-              <TableCell  >{t.email}</TableCell>
-              <TableCell align="right">Info</TableCell>
-              <TableCell>{t.sound}</TableCell>
-                <TableCell align="right">Date</TableCell>
-                <TableCell>{t.date}</TableCell>
-                <TableCell align="right">Format</TableCell>
-              <TableCell align="right">{t.selectedChoice}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    </div>
-    </section>
   );
 }

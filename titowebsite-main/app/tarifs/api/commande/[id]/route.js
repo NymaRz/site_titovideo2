@@ -21,4 +21,6 @@ const orderSchema = new mongoose.Schema({
     // Ajoutez d'autres champs de commande ici
 });
 
+
+
 module.exports = mongoose.model('Order', orderSchema);
