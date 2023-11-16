@@ -1,34 +1,59 @@
 "use client"
 import SectionTitle from '@/components/Common/SectionTitle';
 
+import Burger from "./Burger";
+import Menu from "./Menu";
 import Link from 'next/link';
 import {signOut} from "next-auth/react";
 import AdminLayout from "@/app/adminLayout";
-import {useState} from "react";
+import React, {useState} from "react";
+import "./style.css";
 
-interface User {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-    cv: string;
+
+
+const useOnClickOutside = (ref: unknown, handler: unknown) => {
+    React.useEffect(() => {
+        const listener = (event: unknown) => {
+            // Do nothing if clicking ref's element or descendent elements
+            // @ts-ignore
+            if (!ref || !handler || ref?.current?.contains(event?.target)) {
+                return;
+            }
+
+            // @ts-ignore
+            handler(event);
+        };
+
+        document.addEventListener(`mousedown`, listener);
+        document.addEventListener(`touchstart`, listener);
+
+        return () => {
+            document.removeEventListener(`mousedown`, listener);
+            document.removeEventListener(`touchstart`, listener);
+        };
+    }, [ref, handler]);
 }
 
 
-
 export default function UsersTable() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [open, setOpen] = React.useState(false);
+    const node = React.useRef();
+    useOnClickOutside(node, () => setOpen(false));
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
     return (
 
 
         <>
-            <section id="portfolio" className="relative z-10 py-36 md:py-40 lg:py-28">
 
-                <section id="portfolio" className="relative z-10 py-36 md:py-40 lg:py-28">
+
+
+
+            <div className="flex flex-col items-center justify-center w-full mt-10 md:mt-0">
                     <SectionTitle
                         title="Bienvenue sur votre page admin"
                         paragraph="Vous pouvez suivre l'avançement de vos commandes ici."
@@ -55,9 +80,14 @@ export default function UsersTable() {
                                 Nos Offres
                             </Link>
                         </div>
+                        <div ref={node}>
+                            <Burger open={open} setOpen={setOpen} />
+                            <Menu open={open} setOpen={setOpen} />
+                        </div>
                     </div>
-                </section>
-            </section>
+                </div>
+
+
 
         </>
 
