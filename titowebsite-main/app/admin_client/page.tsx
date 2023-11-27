@@ -1,8 +1,8 @@
 "use client"
 import SectionTitle from '@/components/Common/SectionTitle';
 
-import Burger from "./Burger";
-import Menu from "./Menu";
+import Burger from "./burger";
+import Menu from "./menu";
 import Link from 'next/link';
 import {signOut} from "next-auth/react";
 import AdminLayout from "@/app/adminLayout";

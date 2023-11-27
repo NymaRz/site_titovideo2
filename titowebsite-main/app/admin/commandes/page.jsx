@@ -26,24 +26,33 @@ const getMessages = async () => {
 
     //supprimer une commande delete_command
 
-    const delete_command = async (id) => {
-        try {
-          const res = fetch(`http://localhost:3000/api/delete_command`, {
+const delete_command = async (id) => {
+    try {
+        const res = await fetch(`http://localhost:3000/api/delete_command/${id}`, {
             method: "DELETE",
             cache: "no-store",
-          });
-          const data = await res.json();
-            console.log(data);
+        });
 
-          if (!res.ok) {
+        const data = await res.json();
+        console.log(data);
+
+        if (!res.ok) {
             throw new Error("Failed to delete message");
-          }
-
-          return res.json();
-        } catch (error) {
-          console.log("Error deleting message: ", error);
         }
+
+        // Mettre à jour l'état de votre composant après la suppression
+        // Par exemple, recharger les commandes après la suppression
+        // (Assurez-vous que vous avez une méthode pour récupérer les commandes mises à jour)
+        // const updatedCommands = await getMessages();
+        // Mettez à jour l'état avec les nouvelles commandes
+        // setCommande(updatedCommands);
+
+        return data; // ou retournez ce que vous préférez après la suppression
+    } catch (error) {
+        console.log("Error deleting message: ", error);
     }
+};
+
 
 //TODO: mettre à jour le status de la commande
 

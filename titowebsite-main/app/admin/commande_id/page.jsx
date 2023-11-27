@@ -43,7 +43,7 @@ export default function Commande({ userId }) {
 
 
     return (
-        <section id="portfolio" className="relative z-10 py-4 md:py-5 lg:py-7">
+        <section id="portfolio" className="relative z-10 py-4 md:py-5 lg:py-7 mt-20">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-4">
                     <h1 className="text-2xl font-bold">
@@ -58,25 +58,12 @@ export default function Commande({ userId }) {
 
                 <div className="flex flex-col items-center shadow-lg rounded-lg my-6 p-4">
                     <div className="w-full md:w-3/4 lg:w-1/2">
-                        <div className="flex flex-col space-y-4 mb-4">
-                            <p className="text-gray-700">
-                                <span className="font-bold">Email:</span> {session?.user?.email}
-                            </p>
-                            <p className="text-gray-700">
-                                <span className="font-bold">Id:</span> {session?.user?.id}
-                            </p>
-                            <p className="text-gray-700">
-                                <span className="font-bold">Name:</span> {session?.user?.name}
-                            </p>
-                        </div>
+
 
                         <div className="flex flex-col space-y-4">
-                            <span className="text-gray-700 font-bold">Commandes:</span>
+                            <span className="text-gray-700 font-bold">Vos Commandes:</span>
                             {commandes.map((commande, index) => (
                                 <div key={index} className=" p-3 rounded shadow">
-                                    <p className="font-bold">ID:</p> {commande._id}
-                                    <p className="font-bold">Email:</p> {commande.email}
-                                    <p className="font-bold">Name:</p> {commande.name}
                                     <div>
                                         <p className="font-bold">Selected Choice:</p>
                                         <ul className="list-disc pl-5">
@@ -93,6 +80,8 @@ export default function Commande({ userId }) {
                                             ))}
                                         </ul>
                                     </div>
+                                    <p className="font-bold">Etat de votre commande:</p> {commande.etat}
+                                    <p className="font-bold">Vos TitoCoins:</p> {commande.tito}
                                 </div>
                             ))}
                         </div>

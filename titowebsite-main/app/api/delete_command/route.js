@@ -26,8 +26,9 @@ export default async function handler(req, res) {
             res.status(401).json({message: "Non autorisé"});
             return;
         }
-        await collection.deleteOne({_id: mongoose.Types.ObjectId(id)});
-        res.status(200).json({message: "Commande supprimée"});
+        await collection.deleteOne({ _id: id });
+
+        res.status(200).json({ message: "Commande supprimée" });
     } else {
         res.status(405).end();
     }

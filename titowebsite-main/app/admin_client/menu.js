@@ -51,15 +51,15 @@ const Menu = ({ open }) => {
                 Acceuil
             </a>
             <a
-                href="tarifs"
+                href="profil_client"
             >
         <span role="img" aria-label="price">
           💸
         </span>
-                Pricing
+                Votre profil
             </a>
             <a
-                href="tarifs"
+                href="profil_client"
             >
         <span role="img" aria-label="contact">
           📩
