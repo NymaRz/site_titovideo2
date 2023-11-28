@@ -15,7 +15,7 @@ export default upload.single('file'), async function handler(req, res) {
             return res.status(404).json({ error: 'Utilisateur non trouvé' });
         }
 
-        user.profileImage = `/uploads/${req.file.filename}`;
+        user.image = `/public/team/${req.file.filename}`;
         await user.save();
 
         res.status(200).json({ success: true, message: 'Image de profil mise à jour' });

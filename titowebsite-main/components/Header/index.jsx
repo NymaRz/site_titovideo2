@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
 import { signIn, signOut, useSession } from "next-auth/react";
+import ChatbotComponent from '../ChatComponent/ChatComponent';
 
 const Header = () => {
   const { status } = useSession();
@@ -37,6 +38,9 @@ const Header = () => {
       setOpenIndex(index);
     }
   };
+
+
+
 
   return (
     <>
@@ -71,6 +75,7 @@ const Header = () => {
                   className="hidden w-full dark:block"
                 />
               </Link>
+              <ChatbotComponent/>
             </div>
             <div className="flex w-full items-center justify-between px-4">
               <div>

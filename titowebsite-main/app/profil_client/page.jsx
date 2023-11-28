@@ -2,6 +2,7 @@
 "use client"
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import Fade from 'react-reveal/Fade';
 
 // pages/profile.js
 import React from 'react';
@@ -23,11 +24,45 @@ const profil_client = async () => {
         throw new Error(error.message);
     }
 }
+
+
  export default function Profil_client() {
     const { data: session } = useSession();
     const [commandes, setCommandes] = useState([]);
+     const [profileImage, setProfileImage] = useState('');
+     const [newName, setNewName] = useState(''); // État pour le nouveau nom
 
-    useEffect(() => {
+     const handleFileChange = async (e) => {
+         const file = e.target.files[0];
+
+         const formData = new FormData();
+         formData.append('file', file);
+
+         try {
+             const response = await fetch('/api/upload/upload', {
+                 method: 'POST',
+                 headers: {
+                     Authorization: `Bearer ${session.accessToken}`,
+                 },
+                 body: formData,
+             });
+
+             if (response.ok) {
+                 // Mise à jour de l'image de profil après le téléchargement réussi
+                 const data = await response.json();
+                 setProfileImage(data.profileImage);
+             } else {
+                 console.error('Erreur lors du téléchargement de l\'image');
+             }
+         } catch (error) {
+             console.error('Erreur lors du téléchargement de l\'image', error);
+         }
+     };
+
+
+
+
+     useEffect(() => {
         profil_client()
             .then((data) => {
                 const filteredCommandes = data.commande.filter(
@@ -39,6 +74,22 @@ const profil_client = async () => {
                 console.error("Error fetching commandes:", error);
             });
     }, [session]);
+
+
+
+
+     useEffect(() => {
+         profil_client()
+             .then((data) => {
+                 const filteredCommandes = data.commande.filter(
+                     (commande) => commande.email === session?.user?.email
+                 );
+                 setCommandes(filteredCommandes);
+             })
+             .catch((error) => {
+                 console.error('Error fetching commandes:', error);
+             });
+     }, [session]);
 
     return (
         <div className="min-h-screen bg-gray-100 mt-16">
@@ -59,11 +110,23 @@ const profil_client = async () => {
                             >
                                 <div className="flex items-center mb-2 md:mb-0">
                                     <div className="w-20 h-20 overflow-hidden rounded-full">
+                                        <label className="cursor-pointer">
                                         <img
                                             src={commande.image}
-                                            alt="avatar"
-                                            className="w-full h-full object-cover"
+                                            alt="Profile"
+                                            className="object-cover w-full h-full"
+
                                         />
+                                        <input
+                                            type="file"
+                                            id="profileImage"
+                                            name="profileImage"
+                                            accept="image/*"
+                                            className="hidden"
+                                            onChange={handleFileChange}
+                                        />
+                                        </label>
+
                                     </div>
                                     <div className="flex flex-col ml-4">
                                         <p className="text-lg font-bold">Votre pseudo: {commande.name}</p>
@@ -71,15 +134,14 @@ const profil_client = async () => {
                                         <p className="text-lg font-bold">Vos Titopoints: {commande.tito}</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center">
-                                    <span className="text-sm text-gray-600">{commande.created_at}</span>
-                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
         </div>
+
+
 
 
     );

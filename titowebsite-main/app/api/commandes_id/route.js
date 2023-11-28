@@ -13,7 +13,7 @@ connectDB();
 export async function GET(request) {
     try {
         await connectMongoDB()
-        const commande = await User.find().select('email sound name selectedChoice etat,tito, image')
+        const commande = await User.find().select('email sound name selectedChoice etat,tito, image, createdAt')
         return NextResponse.json({commande})
     }
 
