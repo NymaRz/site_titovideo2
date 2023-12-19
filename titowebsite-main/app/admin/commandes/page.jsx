@@ -26,15 +26,15 @@ const getMessages = async () => {
 
     //supprimer une commande delete_command
 
-const delete_command = async (id) => {
+const delete_command = async (_id) => {
     try {
-        const res = await fetch(`http://localhost:3000/api/delete_command/${id}`, {
+        const res = await fetch(`http://localhost:3000/api/delete_command/${_id}`, {
             method: "DELETE",
             cache: "no-store",
         });
 
         const data = await res.json();
-        console.log(data);
+        console.log(_id);
 
         if (!res.ok) {
             throw new Error("Failed to delete message");
@@ -137,7 +137,7 @@ export default async function BasicTable (){
                                           <td className="flex px-4 py-2 space-x-2">
                                               <Button variant="contained"
                                                       className="bg-red-500 hover:bg-red-600 text-white"
-                                                      onClick={() => delete_command(commande.id)}>
+                                                      onClick={() => delete_command(commande._id)}>
                                                   Supprimer
                                               </Button>
                                               <Button variant="contained"
