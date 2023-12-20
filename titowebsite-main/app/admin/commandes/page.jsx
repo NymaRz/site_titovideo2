@@ -23,26 +23,24 @@ const getMessages = async () => {
     }
 };
 
-//supprimer une commande delete_command
+//supprimer une commande delete_commande
 
-const delete_command = async (id, setCommandes) => {
+const deleteCommande = async (id) => {
     try {
-        const endpoint = `http://localhost:3000/api/commandes/${id}`;
-        const res = await fetch(endpoint, {
+        const res = await fetch(`http://localhost:3000/api/delete_commande/${id}`, {
             method: "DELETE",
+            cache: "no-store",
         });
 
-        if (res.ok) {
-            setCommandes((prev) => prev.filter((commande) => commande._id !== id));
-        } else {
-            const errorData = await res.json();
-            alert(errorData.message || "Erreur lors de la suppression de la commande");
+        if (!res.ok) {
+            throw new Error("Failed to delete commande");
         }
-    } catch (error) {
-        console.error("Erreur lors de la suppression de la commande: ", error);
-    }
-};
 
+        return res.json();
+    } catch (error) {
+        console.log("Error deleting commande: ", error);
+    }
+}
 
 //TODO: mettre à jour le status de la commande
 
@@ -125,7 +123,7 @@ export default async function BasicTable() {
                                             <td className="flex px-4 py-2 space-x-2">
                                                 <Button variant="contained"
                                                         className="bg-red-500 hover:bg-red-600 text-white"
-                                                        onClick={() => delete_command(commande._id)}>
+                                                        onClick={() => deleteCommande(commande._id)}>
                                                     Supprimer
                                                 </Button>
                                                 <Button variant="contained"

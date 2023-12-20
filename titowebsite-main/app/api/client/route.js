@@ -1,4 +1,4 @@
-// pages/api/signup.js
+// pages/[id]/signup.js
 
 import connectMongoDB from "@/libs/mongodb";
 import Clients from "@/models/commande_client";

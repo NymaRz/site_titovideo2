@@ -1,4 +1,4 @@
-// pages/api/login.js
+// pages/[id]/login.js
 
 import connectMongoDB from "@/libs/mongodb";
 import bcrypt from 'bcrypt';
