@@ -1,45 +1,11 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import React, {useState, useEffect} from 'react';
+import {useSession} from 'next-auth/react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import SectionTitle from '@/components/Common/SectionTitle';
-
-const getMessages = async () => {
-    try {
-        const res = await fetch(`http://localhost:3000/tarifs/api/commande`, {
-            method: "GET",
-            cache: "no-store",
-        });
-
-        if (!res.ok) {
-            throw new Error("Failed to fetch messages");
-        }
-
-        return res.json();
-    } catch (error) {
-        console.log("Error loading messages: ", error);
-    }
-};
-
-const deleteCommande = async (id) => {
-    try {
-        const res = await fetch(`http://localhost:3000/api/delete_commande/${id}`, {
-            method: "DELETE",
-            cache: "no-store",
-        });
-
-        if (!res.ok) {
-            throw new Error("Failed to delete commande");
-        }
-
-        return res.json();
-    } catch (error) {
-        console.log("Error deleting commande: ", error);
-    }
-};
 
 export default function BasicTable() {
     const [commandes, setCommandes] = useState([]);
@@ -49,10 +15,67 @@ export default function BasicTable() {
     useEffect(() => {
         const loadCommandes = async () => {
             const data = await getMessages();
+            console.log(data)
             setCommandes(data.commande);
         };
         loadCommandes();
     }, []);
+    const getMessages = async () => {
+        try {
+            const res = await fetch(`http://localhost:3000/tarifs/api/commande`, {
+                method: "GET",
+                cache: "no-store",
+            });
+
+            if (!res.ok) {
+                throw new Error("Failed to fetch messages");
+            }
+
+            return res.json();
+        } catch (error) {
+            console.log("Error loading messages: ", error);
+        }
+    };
+
+    const deleteCommande = async (id) => {
+        try {
+            const res = await fetch(`http://localhost:3000/api/delete_commande/${id}`, {
+                method: "DELETE",
+                cache: "no-store",
+            });
+
+            if (!res.ok) {
+                throw new Error("Failed to delete commande");
+            }
+
+            return res.json();
+        } catch (error) {
+            console.log("Error deleting commande: ", error);
+        }
+    };
+    const updateCommande = async (id, etat) => {
+        try {
+            const res = await fetch(`http://localhost:3000/api/updated_commande/${id}`, {
+                method: "PATCH",
+                cache: "no-store",
+                body: JSON.stringify({ etat }), // Assurez-vous d'envoyer l'état dans le corps de la requête
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error("Failed to update message");
+            }
+
+            return res.json();
+        } catch (error) {
+            console.log("Error updating message: ", error);
+        }
+    };
+
+
+
 
     const handleDeleteClick = (id) => {
         setSelectedCommandeId(id);
@@ -64,6 +87,14 @@ export default function BasicTable() {
         setCommandes(commandes.filter(commande => commande._id !== selectedCommandeId));
         setDeleteConfirmOpen(false);
     };
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('fr-FR', {
+            year: 'numeric', month: '2-digit', day: '2-digit',
+            hour: '2-digit', minute: '2-digit',
+        });
+    };
+
 
     return (
         <>
@@ -82,7 +113,8 @@ export default function BasicTable() {
                                 <th className="px-4 py-2 bg-gray-200">Email</th>
                                 <th className="px-4 py-2">Format</th>
                                 <th className="px-4 py-2">Description</th>
-                                <th className="px-4 py-2">Type de prestation</th>
+                                <th className="px-4 py-2">Telephone</th>
+                                <th className="px-4 py-2">Date</th>
                                 <th className="px-4 py-2">Etat</th>
                                 <th className="px-4 py-2">Actions</th>
                             </tr>
@@ -90,12 +122,13 @@ export default function BasicTable() {
                             <tbody className="text-sm font-normal text-gray-700">
                             {commandes.map((commande) => (
                                 <tr key={commande._id}
+
                                     className="hover:bg-gray-100 border-b border-gray-200 py-4">
                                     <td className="px-4 py-2">{commande.email}</td>
                                     <td className="px-4 py-2">{commande.selectedChoice}</td>
                                     <td className="px-4 py-2">{commande.sound}</td>
                                     <td className="px-4 py-2">{commande.telephone}</td>
-                                    <td className="px-4 py-2">{commande.date}</td>
+                                    <td className="px-4 py-2">{formatDate(commande.date)}</td>
                                     <td className="px-4 py-2">{commande.etat}</td>
                                     <td className="flex px-4 py-2 space-x-2">
                                         <Button variant="contained"
@@ -103,6 +136,14 @@ export default function BasicTable() {
                                                 onClick={() => handleDeleteClick(commande._id)}>
                                             Supprimer
                                         </Button>
+                                        <Button
+                                            variant="contained"
+                                            className="bg-red-500 hover:bg-red-600 text-white"
+                                            onClick={() => updateCommande(commande._id, 'En cours')} // Utilisez 'En cours' comme nouvelle valeur d'état
+                                        >
+                                            Valider
+                                        </Button>
+
                                     </td>
                                 </tr>
                             ))}
