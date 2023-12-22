@@ -1,10 +1,30 @@
+// File: /api/updated_commande/[id]/route.js
+
 import connectMongoDB from "../../../../libs/mongodb";
 import Commande from "@/models/commande";
+import { NextResponse } from "next/server";
 
-export default async function PATCH(request, { params, body }) {
-    await connectMongoDB();
+export async function PUT(request, { params }) {
     const { id } = params;
-    const { etat } = body;
+    const { NewEtat: etat } = await request.json(); // Make sure to await the json parsing
+    await connectMongoDB();
     const updatedCommande = await Commande.findByIdAndUpdate(id, { etat }, { new: true });
-    return { message: "Commande mise à jour", updatedCommande };
+
+    if (!updatedCommande) {
+        return NextResponse.json({ message: "Command not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: "Command updated", updatedCommande }, { status: 200 });
+}
+
+export async function GET(request, { params }) {
+    const { id } = params;
+    await connectMongoDB();
+    const commande = await Commande.findById(id);
+
+    if (!commande) {
+        return NextResponse.json({ message: "Command not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ commande }, { status: 200 });
 }

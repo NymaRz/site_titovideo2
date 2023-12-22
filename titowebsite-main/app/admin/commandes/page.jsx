@@ -1,6 +1,5 @@
-"use client";
-import React, {useState, useEffect} from 'react';
-import {useSession} from 'next-auth/react';
+"use client"
+import React, {useEffect, useState} from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -11,15 +10,17 @@ export default function BasicTable() {
     const [commandes, setCommandes] = useState([]);
     const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
     const [selectedCommandeId, setSelectedCommandeId] = useState(null);
+    const [isUpdateConfirmOpen, setUpdateConfirmOpen] = useState(false);
+    const [updateEtat, setUpdateEtat] = useState('');
 
     useEffect(() => {
         const loadCommandes = async () => {
             const data = await getMessages();
-            console.log(data)
             setCommandes(data.commande);
         };
         loadCommandes();
     }, []);
+
     const getMessages = async () => {
         try {
             const res = await fetch(`http://localhost:3000/tarifs/api/commande`, {
@@ -55,28 +56,42 @@ export default function BasicTable() {
     };
     const updateCommande = async (id, etat) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/updated_commande/${id}`, {
-                method: "PATCH",
-                cache: "no-store",
-                body: JSON.stringify({ etat }), // Assurez-vous d'envoyer l'état dans le corps de la requête
+            const response = await fetch(`/api/updated_commande/${id}`, {
+                method: "PUT",
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({NewEtat: etat}), // Send the new state as JSON
             });
 
-            if (!res.ok) {
-                throw new Error("Failed to update message");
+            if (!response.ok) {
+                throw new Error("Failed to update commande");
             }
 
-            return res.json();
+            const data = await response.json(); // Parse the JSON response
+            return data;
         } catch (error) {
-            console.log("Error updating message: ", error);
+            console.error("Error updating commande: ", error);
         }
     };
-
-
-
-
+    const handleUpdateClick = (id, newEtat) => {
+        setSelectedCommandeId(id);
+        setUpdateEtat(newEtat);
+        setUpdateConfirmOpen(true);
+    };
+    const confirmUpdate = async () => {
+        const data = await updateCommande(selectedCommandeId, updateEtat);
+        if (data && data.updatedCommande) {
+            setCommandes((prevCommandes) =>
+                prevCommandes.map((commande) =>
+                    commande._id === selectedCommandeId
+                        ? {...commande, etat: updateEtat}
+                        : commande
+                )
+            );
+        }
+        setUpdateConfirmOpen(false);
+    };
     const handleDeleteClick = (id) => {
         setSelectedCommandeId(id);
         setDeleteConfirmOpen(true);
@@ -84,17 +99,22 @@ export default function BasicTable() {
 
     const confirmDelete = async () => {
         await deleteCommande(selectedCommandeId);
-        setCommandes(commandes.filter(commande => commande._id !== selectedCommandeId));
+        setCommandes((prevCommandes) =>
+            prevCommandes.filter((commande) => commande._id !== selectedCommandeId)
+        );
         setDeleteConfirmOpen(false);
     };
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('fr-FR', {
-            year: 'numeric', month: '2-digit', day: '2-digit',
-            hour: '2-digit', minute: '2-digit',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
         });
     };
-
 
     return (
         <>
@@ -103,7 +123,8 @@ export default function BasicTable() {
                     title="Bienvenue sur la page admin"
                     paragraph="Vous avez accès en temps réel aux demandes des clients"
                     center
-                    width="635px"/>
+                    width="635px"
+                />
 
                 <div className="container px-4 mx-auto">
                     <div className="overflow-x-auto">
@@ -121,9 +142,10 @@ export default function BasicTable() {
                             </thead>
                             <tbody className="text-sm font-normal text-gray-700">
                             {commandes.map((commande) => (
-                                <tr key={commande._id}
-
-                                    className="hover:bg-gray-100 border-b border-gray-200 py-4">
+                                <tr
+                                    key={commande._id}
+                                    className="hover:bg-gray-100 border-b border-gray-200 py-4"
+                                >
                                     <td className="px-4 py-2">{commande.email}</td>
                                     <td className="px-4 py-2">{commande.selectedChoice}</td>
                                     <td className="px-4 py-2">{commande.sound}</td>
@@ -131,19 +153,20 @@ export default function BasicTable() {
                                     <td className="px-4 py-2">{formatDate(commande.date)}</td>
                                     <td className="px-4 py-2">{commande.etat}</td>
                                     <td className="flex px-4 py-2 space-x-2">
-                                        <Button variant="contained"
-                                                className="bg-red-500 hover:bg-red-600 text-white"
-                                                onClick={() => handleDeleteClick(commande._id)}>
+                                        <Button
+                                            variant="contained"
+                                            className="bg-red-500 hover:bg-red-600 text-white"
+                                            onClick={() => handleDeleteClick(commande._id)}
+                                        >
                                             Supprimer
                                         </Button>
                                         <Button
                                             variant="contained"
                                             className="bg-red-500 hover:bg-red-600 text-white"
-                                            onClick={() => updateCommande(commande._id, 'En cours')} // Utilisez 'En cours' comme nouvelle valeur d'état
+                                            onClick={() => handleUpdateClick(commande._id, 'En cours')} // Utilisez 'En cours' comme nouvelle valeur d'état
                                         >
                                             Valider
                                         </Button>
-
                                     </td>
                                 </tr>
                             ))}
@@ -164,6 +187,22 @@ export default function BasicTable() {
                 <DialogActions>
                     <Button onClick={() => setDeleteConfirmOpen(false)}>Non</Button>
                     <Button onClick={confirmDelete} autoFocus>
+                        Oui
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            {/* Update confirmation dialog */}
+            <Dialog
+                open={isUpdateConfirmOpen}
+                onClose={() => setUpdateConfirmOpen(false)}
+                aria-labelledby="alert-dialog-title"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Confirmer la mise à jour de la commande ?"}
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick={() => setUpdateConfirmOpen(false)}>Non</Button>
+                    <Button onClick={confirmUpdate} autoFocus>
                         Oui
                     </Button>
                 </DialogActions>
