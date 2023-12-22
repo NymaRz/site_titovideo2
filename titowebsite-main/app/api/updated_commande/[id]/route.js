@@ -1,4 +1,4 @@
-// File: /api/updated_commande/[id]/route.js
+// File: /api/updated_commande/[id]/route.js.js
 
 import connectMongoDB from "../../../../libs/mongodb";
 import Commande from "@/models/commande";
