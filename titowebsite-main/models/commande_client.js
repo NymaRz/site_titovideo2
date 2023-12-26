@@ -36,11 +36,13 @@ const clientSchema = new Schema(
             type: String,
             default: "https://cdn.pixabay.com/photo/2017/01/14/12/59/iceland-1979445_1280.jpg",
         },
-
+        date: {
+            type: Date,
+            default: Date.now,
+        },
 
     },
-    { timestamps: true }
-);
+    { timestamps: true });
 
 const Client = models.Client || mongoose.model("Client", clientSchema);
 
