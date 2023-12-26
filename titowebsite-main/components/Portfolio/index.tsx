@@ -1,4 +1,5 @@
 import React from 'react';
+import Carrousel from '../Carrousel'; // Assurez-vous que le chemin d'importation est correct
 
 const Portfolio = () => {
   return (
@@ -16,7 +17,8 @@ const Portfolio = () => {
           >
             Découvrez nos dernières créations
           </h2>
-          
+          <Carrousel />
+
         </div>
 
         <div className="w-full">

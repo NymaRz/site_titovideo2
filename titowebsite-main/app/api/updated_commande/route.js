@@ -7,14 +7,13 @@ export default async (req, res) => {
     await connectMongoDB();
 
     try {
-        const { id } = req.query; // ID de la commande à mettre à jour
-        const { etat } = await req.body; // Nouvel état
+        const { id } = req.query;
+        const { etat } = await req.body;
 
-        // Utilisez findByIdAndUpdate pour mettre à jour la commande par son ID
         const updatedCommande = await Commande.findByIdAndUpdate(
             id,
             { etat },
-            { new: true, runValidators: true } // Make sure to run validators if you have any schema validations.
+            { new: true, runValidators: true }
         );
 
         if (!updatedCommande) {
