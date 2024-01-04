@@ -95,78 +95,80 @@ export default function UsersManagement() {
     };
 
     return (
-        <section id="portfolio" className="relative z-10 py-16 md:py-20 lg:py-28">
-            <h2 className="text-3xl text-center mb-7">Bienvenue sur la page gestion des utilisateurs</h2>
-            <div className="container mx-auto text-center mb-7 pr-7 flex justify-center">
-                <Link href="/admin/commandes" passHref>
-                    <Button variant="contained" color="primary" style={{ marginRight: '15px' }}>
-                        Voir toutes les commandes
-                    </Button>
-                </Link>
-                <Link href="/admin/commandes_terminees" passHref>
-                    <Button variant="contained" color="primary">
-                        Voir les commandes terminées
-                    </Button>
-                </Link>
-            </div>
-            <div className="container px-4 mx-auto">
-                <div className="overflow-x-auto">
-                    <table className="table-auto border-collapse w-full">
-                        <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Rôle</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {users.map((user) => (
-                            <tr key={user._id}>
-                                <td>{user.email}</td>
-                                <td>{user.role}</td>
-                                <td>
-                                    <Button onClick={() => handleDeleteClick(user._id)}>Supprimer</Button>
-                                    <Button onClick={() => { setSelectedUserId(user._id); setIsUpdateRoleOpen(true); }}>Modifier le rôle</Button>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
+        <>
+            <section id="portfolio" className="relative z-10 py-16 md:py-20 lg:py-28">
+                <h2 className="text-3xl text-center mb-7">Bienvenue sur la page gestion des utilisateurs</h2>
+                <div className="container mx-auto text-center mb-7 pr-7 flex justify-center">
+                    <Link href="/admin/commandes" passHref>
+                        <Button variant="contained" color="primary" style={{ marginRight: '15px' }}>
+                            Voir toutes les commandes
+                        </Button>
+                    </Link>
+                    <Link href="/admin/commandes_terminees" passHref>
+                        <Button variant="contained" color="primary">
+                            Voir les commandes terminées
+                        </Button>
+                    </Link>
                 </div>
-            </div>
-            {/* Dialog pour la suppression */}
-            <Dialog open={isDeleteConfirmOpen} onClose={() => setDeleteConfirmOpen(false)}>
-                <DialogTitle>{"Confirmer la suppression de l'utilisateur ?"}</DialogTitle>
-                <DialogActions>
-                    <Button onClick={() => setDeleteConfirmOpen(false)}>Non</Button>
-                    <Button onClick={confirmDelete} autoFocus>Oui</Button>
-                </DialogActions>
-            </Dialog>
-            {/* Dialog pour la mise à jour du rôle */}
-            <Dialog
-                open={isUpdateRoleOpen}
-                onClose={() => setIsUpdateRoleOpen(false)}
-                maxWidth="md"
-                fullWidth={true}
-            >
-                <DialogTitle>{"Modifier le rôle de l'utilisateur"}</DialogTitle>
-                <DialogActions>
-                    <FormControl style={{ width: '100%', maxWidth: '300px' }}>
-                        <InputLabel>Rôle</InputLabel>
-                        <Select
-                            value={newRole}
-                            label="Rôle"
-                            onChange={handleRoleChange}
-                        >
-                            <MenuItem value="user">User</MenuItem>
-                            <MenuItem value="administrateur">Administrateur</MenuItem>
-                            <MenuItem value="monteur">Monteur</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <Button onClick={() => setIsUpdateRoleOpen(false)}>Annuler</Button>
-                    <Button onClick={confirmUpdateRole} autoFocus>Confirmer</Button>
-                </DialogActions>
-            </Dialog>
-        </section>
+                <div className="container px-4 mx-auto">
+                    <div className="overflow-x-auto">
+                        <table className="table-auto border-collapse w-full">
+                            <thead className="rounded-lg text-sm font-medium text-gray-700 text-left">
+                            <tr>
+                                <th className="px-4 py-2 bg-gray-200">Email</th>
+                                <th className="px-4 py-2">Rôle</th>
+                                <th className="px-4 py-2">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody className="text-sm font-normal text-gray-700">
+                            {users.map((user) => (
+                                <tr key={user._id} className="hover:bg-gray-100 border-b border-gray-200 py-4">
+                                    <td className="px-4 py-2">{user.email}</td>
+                                    <td className="px-4 py-2">{user.role}</td>
+                                    <td className="flex px-4 py-2 space-x-2">
+                                        <Button onClick={() => handleDeleteClick(user._id)}>Supprimer</Button>
+                                        <Button onClick={() => { setSelectedUserId(user._id); setIsUpdateRoleOpen(true); }}>Modifier le rôle</Button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {/* Dialog pour la suppression */}
+                <Dialog open={isDeleteConfirmOpen} onClose={() => setDeleteConfirmOpen(false)}>
+                    <DialogTitle>{"Confirmer la suppression de l'utilisateur ?"}</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={() => setDeleteConfirmOpen(false)}>Non</Button>
+                        <Button onClick={confirmDelete} autoFocus>Oui</Button>
+                    </DialogActions>
+                </Dialog>
+                {/* Dialog pour la mise à jour du rôle */}
+                <Dialog
+                    open={isUpdateRoleOpen}
+                    onClose={() => setIsUpdateRoleOpen(false)}
+                    maxWidth="md"
+                    fullWidth={true}
+                >
+                    <DialogTitle>{"Modifier le rôle de l'utilisateur"}</DialogTitle>
+                    <DialogActions>
+                        <FormControl style={{ width: '100%', maxWidth: '300px' }}>
+                            <InputLabel>Rôle</InputLabel>
+                            <Select
+                                value={newRole}
+                                label="Rôle"
+                                onChange={handleRoleChange}
+                            >
+                                <MenuItem value="user">User</MenuItem>
+                                <MenuItem value="administrateur">Administrateur</MenuItem>
+                                <MenuItem value="monteur">Monteur</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <Button onClick={() => setIsUpdateRoleOpen(false)}>Annuler</Button>
+                        <Button onClick={confirmUpdateRole} autoFocus>Confirmer</Button>
+                    </DialogActions>
+                </Dialog>
+            </section>
+        </>
     );
 }
