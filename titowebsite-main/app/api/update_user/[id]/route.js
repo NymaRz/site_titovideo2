@@ -1,26 +1,26 @@
-// File: /api/update_user/[id].js
+// File: /api/update_user/[id].route.js
 
 import connectMongoDB from "../../../../libs/mongodb";
-import {NextResponse} from "next/server";
-import User from "../../../../models/user"; // À remplacer par 'res' si c'est utilisé dans une API Route
+import User from "../../../../models/user";
 
-export async function PUT(req, res) {
-    const {id} = req.query; // Dans une API Route, utilisez req.query pour accéder aux paramètres
-    const userData = await req.body; // userData contient les champs à mettre à jour
+export async function PUT(request, { params }) {
+    const { id } = params;
+    const { NewRole: role } = await request.json();
     await connectMongoDB();
-    const updatedUser = await User.findByIdAndUpdate(id, userData, {new: true});
+    const updatedUser = await User.findByIdAndUpdate(id, { role }, { new: true });
     if (!updatedUser) {
-        return res.status(404).json({message: "User not found"});
+        return res.status(404).json({ message: "User not found" });
     }
-    return res.status(200).json({message: "User updated", updatedUser});
-}
+
+    return res.status(200).json({ message: "User updated", updatedUser });
+} // Added missing closing brace
 
 export async function GET(req, res) {
-    const {id} = req.query; // Dans une API Route, utilisez req.query pour accéder aux paramètres
+    const { id } = req.query; // Changed to req.query to get the id parameter from the URL
     await connectMongoDB();
     const user = await User.findById(id);
     if (!user) {
-        return res.status(404).json({message: "User not found"});
+        return res.status(404).json({ message: "User not found" });
     }
-    return res.status(200).json({user});
+    return res.status(200).json({ user }); // Corrected the structure
 }

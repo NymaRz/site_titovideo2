@@ -15,6 +15,6 @@ export async function GET(request) {
     } catch (error) {
         console.error(error);
         // Envoyez une réponse d'erreur au client
-        return NextResponse.json({message: "Erreur lors de la récupération des usssseeer"}, {status: 500});
+        return NextResponse.json({message: "Erreur lors de la récupération des user"}, {status: 500});
     }
 }

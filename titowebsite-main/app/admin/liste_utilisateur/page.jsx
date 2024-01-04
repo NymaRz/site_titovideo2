@@ -55,24 +55,31 @@ export default function UsersManagement() {
         }
     };
 
-    const updateUserRole = async (id, role) => {
-        try {
-            const res = await fetch(`http://localhost:3000/api/update_user/${id}`, {
-                method: "PUT",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ role }), // Met à jour le rôle
-            });
+        const updateUserRole = async (id, newRole) => {
+            try {
+                const response = await fetch(`/api/update_user/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ NewRole: newRole }),
+                });
 
-            if (!res.ok) {
-                throw new Error("Échec de la mise à jour de l'utilisateur");
+                if (!response.ok) {
+                    throw new Error("Failed to update user role");
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error("Error updating user role: ", error);
             }
+        };
 
-            await loadUsers(); // Recharge la liste des utilisateurs après la mise à jour
-        } catch (error) {
-            console.error("Erreur lors de la mise à jour de l'utilisateur: ", error);
-        }
+
+
+    const handleRoleChange = (event) => {
+        setNewRole(event.target.value);
     };
 
     const handleDeleteClick = (id) => {
@@ -85,14 +92,39 @@ export default function UsersManagement() {
         setDeleteConfirmOpen(false);
     };
 
-    const handleRoleChange = (event) => {
-        setNewRole(event.target.value);
+    const handleRoleUpdate = (id) => {
+        const user = users.find(u => u._id === id);
+        if (user) {
+            setNewRole(user.role); // Assurez-vous que user.role est l'une des valeurs valides
+        } else {
+            setNewRole(''); // ou une autre valeur par défaut
+        }
+        setSelectedUserId(id);
+        setIsUpdateRoleOpen(true); // Ouvrir le dialogue de confirmation
     };
 
-    const confirmUpdateRole = async () => {
-        await updateUserRole(selectedUserId, newRole);
+    const confirmRoleUpdate = async () => {
+        try {
+            const response = await updateUserRole(selectedUserId, newRole);
+            if (response && response.ok) {
+                setUsers(users.map((user) =>
+                    user._id === selectedUserId ? { ...user, role: newRole } : user
+                ));
+            } else {
+                console.error("La mise à jour du rôle a échoué");
+                setNewRole(''); // Réinitialiser newRole en cas d'échec
+            }
+        } catch (error) {
+            console.error("Erreur lors de la mise à jour du rôle:", error);
+            setNewRole(''); // Réinitialiser newRole en cas d'erreur
+        }
         setIsUpdateRoleOpen(false);
     };
+
+
+
+
+
 
     return (
         <>
@@ -127,7 +159,7 @@ export default function UsersManagement() {
                                     <td className="px-4 py-2">{user.role}</td>
                                     <td className="flex px-4 py-2 space-x-2">
                                         <Button onClick={() => handleDeleteClick(user._id)}>Supprimer</Button>
-                                        <Button onClick={() => { setSelectedUserId(user._id); setIsUpdateRoleOpen(true); }}>Modifier le rôle</Button>
+                                        <Button onClick={() => handleRoleUpdate(user._id)}>Modifier le rôle</Button>
                                     </td>
                                 </tr>
                             ))}
@@ -159,13 +191,13 @@ export default function UsersManagement() {
                                 label="Rôle"
                                 onChange={handleRoleChange}
                             >
-                                <MenuItem value="user">User</MenuItem>
+                                <MenuItem value="users">User</MenuItem>
                                 <MenuItem value="administrateur">Administrateur</MenuItem>
                                 <MenuItem value="monteur">Monteur</MenuItem>
                             </Select>
                         </FormControl>
                         <Button onClick={() => setIsUpdateRoleOpen(false)}>Annuler</Button>
-                        <Button onClick={confirmUpdateRole} autoFocus>Confirmer</Button>
+                        <Button onClick={confirmRoleUpdate} autoFocus>Confirmer</Button>
                     </DialogActions>
                 </Dialog>
             </section>
