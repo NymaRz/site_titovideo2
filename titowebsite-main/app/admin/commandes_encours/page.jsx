@@ -109,9 +109,9 @@ export default function BasicTable() {
                         </Button>
                     </Link>
                     <Link href="/admin/commandes_terminees" passHref>
-                        <Button variant="contained" color="primary">
+                        <Butpx-4ton variant="contained" color="primary">
                             Voir les commandes terminées
-                        </Button>
+                        </Butpx-4ton>
                     </Link>
                 </div>
                 <div className="container px-4 mx-auto">
