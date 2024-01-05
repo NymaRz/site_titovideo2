@@ -48,7 +48,7 @@ const Menu = ({ open }) => {
         <span role="img" aria-label="about us">
           💁🏻‍♂️
         </span>
-                Acceuil
+                Accueil
             </a>
             <a
                 href="profil_client"
