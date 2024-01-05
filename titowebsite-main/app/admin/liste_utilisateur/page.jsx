@@ -10,7 +10,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Link from "next/link";
+import CheckIcon from '@mui/icons-material/Check'; // Importer l'icône Check
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 
+CloseIcon
 export default function UsersManagement() {
     const [users, setUsers] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState(null);
@@ -107,19 +112,23 @@ export default function UsersManagement() {
         try {
             const response = await updateUserRole(selectedUserId, newRole);
             if (response && response.ok) {
+                // Mise à jour immédiate de l'état local
                 setUsers(users.map((user) =>
                     user._id === selectedUserId ? { ...user, role: newRole } : user
                 ));
             } else {
                 console.error("La mise à jour du rôle a échoué");
-                setNewRole(''); // Réinitialiser newRole en cas d'échec
+                // Optionnel: Recharger les utilisateurs depuis le serveur
+                loadUsers();
             }
         } catch (error) {
             console.error("Erreur lors de la mise à jour du rôle:", error);
-            setNewRole(''); // Réinitialiser newRole en cas d'erreur
+            // Optionnel: Recharger les utilisateurs depuis le serveur
+            loadUsers();
         }
         setIsUpdateRoleOpen(false);
     };
+
 
 
 
@@ -158,8 +167,8 @@ export default function UsersManagement() {
                                     <td className="px-4 py-2">{user.email}</td>
                                     <td className="px-4 py-2">{user.role}</td>
                                     <td className="flex px-4 py-2 space-x-2">
-                                        <Button onClick={() => handleDeleteClick(user._id)}>Supprimer</Button>
-                                        <Button onClick={() => handleRoleUpdate(user._id)}>Modifier le rôle</Button>
+                                        <Button onClick={() => handleDeleteClick(user._id)}><DeleteIcon   /></Button>
+                                        <Button onClick={() => handleRoleUpdate(user._id)}><EditIcon  /></Button>
                                     </td>
                                 </tr>
                             ))}
@@ -191,14 +200,15 @@ export default function UsersManagement() {
                                 label="Rôle"
                                 onChange={handleRoleChange}
                             >
-                                <MenuItem value="users">User</MenuItem>
+                                <MenuItem value="user">Utilisateur</MenuItem>
                                 <MenuItem value="administrateur">Administrateur</MenuItem>
                                 <MenuItem value="monteur">Monteur</MenuItem>
                             </Select>
                         </FormControl>
-                        <Button onClick={() => setIsUpdateRoleOpen(false)}>Annuler</Button>
-                        <Button onClick={confirmRoleUpdate} autoFocus>Confirmer</Button>
-                    </DialogActions>
+                        <Button onClick={() => setIsUpdateRoleOpen(false)}><CloseIcon  /></Button>
+                        <Button onClick={confirmRoleUpdate} autoFocus>
+                            <CheckIcon />
+                        </Button>                    </DialogActions>
                 </Dialog>
             </section>
         </>
