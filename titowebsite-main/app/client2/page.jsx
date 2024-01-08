@@ -194,7 +194,7 @@ const SignupClient = () => {
                                 </form>
                                 <p className="text-center text-base font-medium text-body-color">
                                     Vous avez un compte?
-                                    <Link href="/signin" className="text-primary hover:underline">
+                                    <Link href="/login_client" className="text-primary hover:underline">
                                         Connectez-vous
                                     </Link>
                                 </p>
