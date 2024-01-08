@@ -45,6 +45,7 @@ const SignupPage = () => {
           name,
           email,
           password,
+          role: "user" // Ajoutez le rôle "user" ici
         }),
       });
 

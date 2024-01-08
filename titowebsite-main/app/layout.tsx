@@ -1,64 +1,52 @@
 "use client";
 
 import './globals.css'
-import { Inter } from 'next/font/google'
-import { NextAuthProvider } from "./Providers";
+import {Inter} from 'next/font/google'
+import {NextAuthProvider} from "./Providers";
 import Navbar from '@/components/Navbar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import {useRouter} from "next/navigation";
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({subsets: ['latin']})
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-import Hero from "@/components/Hero";
-import Articles from "@/app/articles/page";
-import Portfolio from "@/components/Portfolio";
-import Brands from "@/components/Brands";
-import Contact from "@/components/Contact";
-import Team from "@/components/Team";
-import Testimonials from "@/components/Testimonials";
 import ScrollToTop from "@/components/ScrollToTop";
-import Features from "@/components/Features";
-import Admin from "@/app/admin/page";
+import React, {useEffect, useState} from "react";
 
 const stripePromise = loadStripe('pk_test_oKhSR5nslBRnBZpjO6KuzZeX');
 
 
 export default function RootLayout({
-  children,const: options = {
-    // ...
-    }
-}:{
-
-  children: React.ReactNode
+                                       children,
+                                   }: {
+    children: React.ReactNode;
 }) {
+    // Utilisez le state pour suivre la valeur de hideHeaderAndFooter
+    const [hideHeaderAndFooter, setHideHeaderAndFooter] = useState(false);
 
+    // Utilisez useEffect pour accéder à window.location.pathname une fois que le composant est monté
+    useEffect(() => {
+        setHideHeaderAndFooter(window.location.pathname === '/admin_client' || window.location.pathname === '/admin');
+    }, []);
 
-  const hideHeaderAndFooter = window.location.pathname === ('/admin_client' || '/admin');
-  return (
-    <html lang="en">
+    return (
+        <html lang="en">
         {/*
         <head /> will contain the components returned by the nearest parent
         head.js. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
-      <head ><title>Titovideo</title></head>
-      <body className="dark:bg-black">
-      <NextAuthProvider>
-          <Elements stripe={stripePromise}>
-          {!hideHeaderAndFooter && <Header />}
-              {children}
-          </Elements>
-          <ScrollToTop />
-          {!hideHeaderAndFooter && <Footer />}
-      </NextAuthProvider>
-      </body>
-    </html>
-  )
+        <head>
+            <title>Titovideo</title>
+        </head>
+        <body className="dark:bg-black">
+        <NextAuthProvider>
+            <Elements stripe={stripePromise}>
+                {!hideHeaderAndFooter && <Header/>}
+                {children}
+            </Elements>
+            <ScrollToTop/>
+            {!hideHeaderAndFooter && <Footer/>}
+        </NextAuthProvider>
+        </body>
+        </html>
+    );
 }
-
-
-
-
-
-
-
